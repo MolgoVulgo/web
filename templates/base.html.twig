@@ -6,6 +6,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+        <script type="text/javascript" src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     </head>
     <body>
         <div class="container">

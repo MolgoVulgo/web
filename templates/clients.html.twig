@@ -1,20 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientsController!{% endblock %}
+{% block title %}Clients{% endblock %}
+
+{% block titre %}Client{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/molgo/.data/AllSet/Develop/Symfony/seb-expo/src/Controller/ClientsController.php'|file_link(0) }}">src/Controller/ClientsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/molgo/.data/AllSet/Develop/Symfony/seb-expo/templates/clients/index.html.twig'|file_link(0) }}">templates/clients/index.html.twig</a></code></li>
-    </ul>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="{{ path('client_add') }}" role="button">ajout</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ sg_datatables_render(clientDatatable) }}
+    </div>
 </div>
 {% endblock %}

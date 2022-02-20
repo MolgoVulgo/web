@@ -12,7 +12,7 @@ use Sg\DatatablesBundle\Datatable\Style;
  *
  * @package App\Datatables
  */
-class UsersDatatable extends AbstractDatatable
+class ClientsDatatable extends AbstractDatatable
 {
     /**
      * {@inheritdoc}
@@ -34,10 +34,10 @@ class UsersDatatable extends AbstractDatatable
     {
         $this->ajax->set(array(
             // send some extra example data
-            //'data' => array('data1' => 1, 'data2' => 2),
+            'data' => array('data1' => 1, 'data2' => 2),
             // cache for 10 pages
             'pipeline' => 25,
-            'url' => $this->router->generate('rightsmanagements_datatable')
+            'url' => $this->router->generate('client_list')
             // 'type' => 'POST',
             // 'url' => $this->router->generate('cms_links_results')
             // https://github.com/stwe/DatatablesBundle/issues/742

@@ -36,6 +36,9 @@ class Clients
     #[ORM\Column(type: 'string', length: 255)]
     private $ville;
 
+    #[ORM\Column(type: 'integer')]
+    private $sexe;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +124,18 @@ class Clients
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getSexe(): ?bool
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(bool $sexe): self
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }
