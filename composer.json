@@ -7,14 +7,26 @@
         "php": ">=8.0.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "6.0.*",
-        "symfony/dotenv": "6.0.*",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.11",
+        "friendsofsymfony/jsrouting-bundle": "^3.1",
+        "sensio/framework-extra-bundle": "^5.6",
+        "sg/datatablesbundle": "^1.2",
+        "symfony/console": "^5.3",
+        "symfony/dotenv": "^5.3",
         "symfony/flex": "^2",
-        "symfony/framework-bundle": "6.0.*",
-        "symfony/runtime": "6.0.*",
-        "symfony/yaml": "6.0.*"
-    },
-    "require-dev": {
+        "symfony/form": "5.*",
+        "symfony/framework-bundle": "^5.3",
+        "symfony/maker-bundle": "^1.37",
+        "symfony/proxy-manager-bridge": "^5.3",
+        "symfony/runtime": "^5.3",
+        "symfony/security-bundle": "5.*",
+        "symfony/twig-bundle": "^5.3",
+        "symfony/webpack-encore-bundle": "^1.14",
+        "symfony/yaml": "^5.3",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -64,7 +76,8 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.0.*"
+            "require": "5.*",
+            "docker": false
         }
     }
 }
