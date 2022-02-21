@@ -98,6 +98,11 @@ class ClientsDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
             ))
+            ->add('genre', Column::class, array(
+                'title' => 'Genre',
+                'searchable' => true,
+                'orderable' => true,
+            ))
             ->add('email', Column::class, array(
                 'title' => 'E-Mail',
                 'searchable' => true,

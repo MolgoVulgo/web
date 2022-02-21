@@ -37,7 +37,7 @@ class Clients
     private $ville;
 
     #[ORM\Column(type: 'string', length: 5)]
-    private $sexe;
+    private $genre;
 
     public function getId(): ?int
     {
@@ -128,14 +128,14 @@ class Clients
         return $this;
     }
 
-    public function getSexe(): ?bool
+    public function getGenre(): ?string
     {
-        return $this->sexe;
+        return $this->genre;
     }
 
-    public function setSexe(bool $sexe): self
+    public function setGenre(string $genre): self
     {
-        $this->sexe = $sexe;
+        $this->genre = $genre;
 
         return $this;
     }

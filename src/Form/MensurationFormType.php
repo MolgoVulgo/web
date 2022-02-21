@@ -12,6 +12,10 @@ class MensurationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $this->genre = $options['genre'];
+
+        dump($options);
+
         $builder
             ->add('hauteurTailleSol', NumberType::class)
             ->add('longueurBasLegerementPlie', NumberType::class)
@@ -33,11 +37,13 @@ class MensurationFormType extends AbstractType
             ->add('tourPoignet', NumberType::class)
             ->add('tourCuisse', NumberType::class)
             ->add('tourMollet', NumberType::class)
-            ->add('hauteurEncolureTailleDos', NumberType::class)
+            ->add('hauteurEncolureTailleDos', NumberType::class);
             // femme selement
-            ->add('tourPoitrine', NumberType::class)
-            ->add('encartSaillantPoitrine', NumberType::class)
-            ->add('tourSousPoitrine', NumberType::class)
+            if($this->genre == 'femme'){
+                $builder->add('tourPoitrine', NumberType::class)
+                    ->add('encartSaillantPoitrine', NumberType::class)
+                    ->add('tourSousPoitrine', NumberType::class);
+            }    
         ;
     }
 
@@ -45,6 +51,7 @@ class MensurationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Mensuration::class,
+            'genre' => null,
         ]);
     }
 }

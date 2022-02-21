@@ -30,7 +30,7 @@ class ClientFormType extends AbstractType
             ->add('adresse',TextType::class)
             ->add('codePostal', NumberType::class)
             ->add('ville',TextType::class)
-            ->add('sexe', ChoiceType::class, [
+            ->add('genre', ChoiceType::class, [
                 'label' => 'Genre',
                 'choices'  => [
                     'Homme' => "homme",

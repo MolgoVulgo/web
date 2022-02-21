@@ -63,7 +63,13 @@ class ClientsController extends AbstractController
     {
 
         $client = new Clients;
-        $clientForm = $this->createForm(ClientFormType::class, $client, ['action' => $this->generateUrl('client_add')]);
+        $clientForm = $this->createForm(
+            ClientFormType::class, 
+            $client, 
+            [
+                'action' => $this->generateUrl('client_add'),
+            ]
+        );
 
         $clientForm->handleRequest($request);
         if ($clientForm->isSubmitted() && $clientForm->isValid()) {
@@ -89,7 +95,14 @@ class ClientsController extends AbstractController
     public function clientMensuration(Request $request,Clients $client): Response
     {
         $mensuration = new Mensuration;
-        $mensurationForm = $this->createForm(MensurationFormType::class, $mensuration, ['action' => $this->generateUrl('client_mensuration',['client' => $client->getId()])]);
+        $mensurationForm = $this->createForm(
+            MensurationFormType::class, 
+            $mensuration, 
+            [
+                'action' => $this->generateUrl('client_mensuration',['client' => $client->getId()]),
+                'genre' => $client->getGenre(),
+            ]
+        );
 
         $mensurationForm->handleRequest($request);
         if ($mensurationForm->isSubmitted() && $mensurationForm->isValid()) {
