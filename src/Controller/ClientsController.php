@@ -113,6 +113,7 @@ class ClientsController extends AbstractController
 
         return $this->render('clients/mensuration.html.twig', [
             'mensurationForm' => $mensurationForm->createView(),
+            'genre' => $client->getGenre(),
         ]);
     }
 

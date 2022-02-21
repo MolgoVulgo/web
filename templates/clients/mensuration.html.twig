@@ -6,8 +6,20 @@
 
 {% block body %}
 
-{{ form_start(mensurationForm) }}
+<div class="row">
+    <div class="col">
+        <img class="img-fluid" src="{{ asset('images/mesuraration_'~ genre ~'.jpg') }}"/>        
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                {{ form_start(mensurationForm) }}
+                {{ form_end(mensurationForm) }}
+            </div>
+        </div>
+    </div>
+</div>
 
-{{ form_end(mensurationForm) }}
+
 
 {% endblock %}
