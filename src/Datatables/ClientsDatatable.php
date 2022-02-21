@@ -47,14 +47,14 @@ class ClientsDatatable extends AbstractDatatable
             'classes' => Style::BOOTSTRAP_4_STYLE,
             //'stripe_classes' => [ 'strip1', 'strip2', 'strip3' ],
             'individual_filtering' => true,
-            'individual_filtering_position' => 'both', //'both', 'foot' or 'head'
+            'individual_filtering_position' => 'head', //'both', 'foot' or 'head'
             'order' => array(array(1, 'asc')),
             'order_cells_top' => true,
-            //'global_search_type' => 'gt',
+            'global_search_type' => 'gt',
             'search_in_non_visible_columns' => true,
             'length_menu' => ['25', '50', '100', '500'],
             'page_length' => 25,
-            //'dom' => 'Bfrtip',
+            'dom' => 'lrtip',
         ));
 
         // $this->extensions->set([

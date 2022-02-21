@@ -12,4 +12,6 @@ import './styles/app.scss';
 import './bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 
+// loads the jquery package from node_modules
 bsCustomFileInput.init();
+

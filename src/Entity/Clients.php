@@ -36,7 +36,7 @@ class Clients
     #[ORM\Column(type: 'string', length: 255)]
     private $ville;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'string', length: 5)]
     private $sexe;
 
     public function getId(): ?int

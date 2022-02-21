@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Datatables\ClientsDatatable;
 use App\Entity\Clients;
+use App\Entity\Mensuration;
 use App\Form\ClientFormType;
+use App\Form\MensurationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,10 +68,39 @@ class ClientsController extends AbstractController
         $clientForm->handleRequest($request);
         if ($clientForm->isSubmitted() && $clientForm->isValid()) {
 
+            $client = $clientForm->getData();
+            $this->em->persist($client);
+            $this->em->flush();
+            
+            if ($clientForm->getClickedButton() === $clientForm->get('mensuration')){
+                return $this->redirectToRoute('client_mensuration', [
+                    'client' => $client->getId(),
+                ]);
+            }
+
         }
 
         return $this->render('clients/add.html.twig', [
             'clientForm' => $clientForm->createView(),
         ]);
     }
+
+    #[Route('/clients/{client}/mensuration', name: 'client_mensuration')]
+    public function clientMensuration(Request $request,Clients $client): Response
+    {
+        $mensuration = new Mensuration;
+        $mensurationForm = $this->createForm(MensurationFormType::class, $mensuration, ['action' => $this->generateUrl('client_mensuration',['client' => $client->getId()])]);
+
+        $mensurationForm->handleRequest($request);
+        if ($mensurationForm->isSubmitted() && $mensurationForm->isValid()) {
+
+
+
+        }
+
+        return $this->render('clients/mensuration.html.twig', [
+            'mensurationForm' => $mensurationForm->createView(),
+        ]);
+    }
+
 }

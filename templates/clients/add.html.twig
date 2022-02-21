@@ -8,6 +8,49 @@
 
 {{ form_start(clientForm) }}
 
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.prenom)}}
+    </div>
+    <div class="col">
+      {{form_row(clientForm.nom)}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.sexe)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.email)}}
+    </div>
+    <div class="col">
+      {{form_row(clientForm.telephone)}}
+    </div>
+</div> 
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.adresse)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.codePostal)}}
+    </div>
+    <div class="col">
+      {{form_row(clientForm.ville)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(clientForm.enregistrer)}}
+    </div>
+    <div class="col">
+       {{form_row(clientForm.mensuration)}}
+    </div>
+</div>   
+
 {{ form_end(clientForm) }}
 
 {% endblock %}
