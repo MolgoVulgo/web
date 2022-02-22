@@ -39,6 +39,9 @@ class Clients
     #[ORM\Column(type: 'string', length: 5)]
     private $genre;
 
+    #[ORM\OneToOne(inversedBy: 'clients', targetEntity: Mensuration::class, cascade: ['persist', 'remove'])]
+    private $mensuration;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,18 @@ class Clients
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getMensuration(): ?Mensuration
+    {
+        return $this->mensuration;
+    }
+
+    public function setMensuration(?Mensuration $mensuration): self
+    {
+        $this->mensuration = $mensuration;
 
         return $this;
     }

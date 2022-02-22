@@ -6,6 +6,7 @@ use App\Entity\Mensuration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MensurationFormType extends AbstractType
@@ -14,35 +15,87 @@ class MensurationFormType extends AbstractType
     {
         $this->genre = $options['genre'];
 
-        dump($options);
-
         $builder
-            ->add('hauteurTailleSol', NumberType::class)
-            ->add('longueurBasLegerementPlie', NumberType::class)
-            ->add('hauteurEncolureSol', NumberType::class)
-            ->add('taille', NumberType::class)
-            ->add('tourCou', NumberType::class)
-            ->add('carrureDevant', NumberType::class)
-            ->add('carrureDos', NumberType::class)
-            ->add('tourTaille', NumberType::class)
-            ->add('tourHanche', NumberType::class)
-            ->add('tourBassin', NumberType::class)
-            ->add('tourGenou', NumberType::class)
-            ->add('tourCheville', NumberType::class)
-            ->add('hauteurEcolureTailleDevant', NumberType::class)
-            ->add('hauteurEncolurSaillant', NumberType::class)
-            ->add('hauteurTailleGenou', NumberType::class)
-            ->add('tourBiceps', NumberType::class)
-            ->add('tourAvantBras', NumberType::class)
-            ->add('tourPoignet', NumberType::class)
-            ->add('tourCuisse', NumberType::class)
-            ->add('tourMollet', NumberType::class)
-            ->add('hauteurEncolureTailleDos', NumberType::class);
+            ->add('hauteurTailleSol', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('longueurBasLegerementPlie', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('hauteurEncolureSol', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('taille', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourCou', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('carrureDevant', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('carrureDos', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourTaille', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourHanche', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourBassin', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourGenou', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourCheville', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('hauteurEcolureTailleDevant', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('hauteurEncolurSaillant', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('hauteurTailleGenou', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourBiceps', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourAvantBras', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourPoignet', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourCuisse', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('tourMollet', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('hauteurEncolureTailleDos', NumberType::class,[
+                'required' => false,
+            ])
+            ->add('enregistrer', SubmitType::class,[
+                'required' => false,
+            ])
+            ->add('produits', SubmitType::class,[
+                'required' => false,
+            ]);
             // femme selement
             if($this->genre == 'femme'){
-                $builder->add('tourPoitrine', NumberType::class)
-                    ->add('encartSaillantPoitrine', NumberType::class)
-                    ->add('tourSousPoitrine', NumberType::class);
+                $builder->add('tourPoitrine', NumberType::class,[
+                'required' => false,
+            ])
+                    ->add('encartSaillantPoitrine', NumberType::class,[
+                'required' => false,
+            ])
+                    ->add('tourSousPoitrine', NumberType::class,[
+                'required' => false,
+            ]);
             }    
         ;
     }

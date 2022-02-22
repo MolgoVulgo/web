@@ -21,6 +21,9 @@ class Types
     #[ORM\OneToMany(mappedBy: 'types', targetEntity: Produits::class)]
     private $produits;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $commentaire;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -69,6 +72,18 @@ class Types
                 $produit->setTypes(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

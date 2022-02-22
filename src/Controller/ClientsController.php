@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Datatables\ClientsDatatable;
 use App\Entity\Clients;
 use App\Entity\Mensuration;
 use App\Form\ClientFormType;
 use App\Form\MensurationFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Datatables\ClientsDatatable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +39,6 @@ class ClientsController extends AbstractController
         $clientDatatable->buildDatatable();
 
         return $this->render('clients.html.twig', [
-            'controller_name' => 'ClientsController',
             'clientDatatable' => $clientDatatable,
         ]);
     }
@@ -94,7 +93,12 @@ class ClientsController extends AbstractController
     #[Route('/clients/{client}/mensuration', name: 'client_mensuration')]
     public function clientMensuration(Request $request,Clients $client): Response
     {
-        $mensuration = new Mensuration;
+        
+        $mensuration = $client->getMensuration();
+        if (is_null($mensuration)) {
+            $mensuration = new Mensuration;
+        }
+            
         $mensurationForm = $this->createForm(
             MensurationFormType::class, 
             $mensuration, 
@@ -107,7 +111,10 @@ class ClientsController extends AbstractController
         $mensurationForm->handleRequest($request);
         if ($mensurationForm->isSubmitted() && $mensurationForm->isValid()) {
 
-
+            $mensuration = $mensurationForm->getData();
+            $client->setMensuration($mensuration);
+            $this->em->persist($client);
+            $this->em->flush();
 
         }
 

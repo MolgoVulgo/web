@@ -8,11 +8,11 @@ use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Style;
 
 /**
- * Class ClientsDatatable
+ * Class ProduitsDatatable
  *
  * @package App\Datatables
  */
-class ClientsDatatable extends AbstractDatatable
+class ProduitsDatatable extends AbstractDatatable
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class ClientsDatatable extends AbstractDatatable
             'data' => array('data1' => 1, 'data2' => 2),
             // cache for 10 pages
             'pipeline' => 25,
-            'url' => $this->router->generate('client_list')
+            'url' => $this->router->generate('produits_list')
             // 'type' => 'POST',
             // 'url' => $this->router->generate('cms_links_results')
             // https://github.com/stwe/DatatablesBundle/issues/742
@@ -88,49 +88,49 @@ class ClientsDatatable extends AbstractDatatable
         ));
 
         $this->columnBuilder
-            ->add('nom', Column::class, array(
-                'title' => 'Last Name',
+            ->add('ref', Column::class, array(
+                'title' => 'ref',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('prenom', Column::class, array(
-                'title' => 'First Name',
+            ->add('designation', Column::class, array(
+                'title' => 'designation',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('genre', Column::class, array(
+            ->add('types', Column::class, array(
                 'title' => 'Genre',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('email', Column::class, array(
-                'title' => 'E-Mail',
+            ->add('taille', Column::class, array(
+                'title' => 'taille',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add(null, ActionColumn::class, array(
-                'title' => 'Actions',
-                'start_html' => '<div class="start_actions">',
-                'end_html' => '</div>',
-                'actions' => array(
-                    array(
-                        'route' => 'client_mensuration',
-                        'route_parameters' => array(
-                            'client' => 'id',
-                        ),
-                        'icon' => 'glyphicon glyphicon-eye-open',
-                        'label' => 'M',
-                        'attributes' => array(
-                            'rel' => 'tooltip',
-                            'title' => 'Mensuration',
-                            'class' => 'btn btn-primary btn-xs',
-                            'role' => 'button',
-                        ),
-                        'start_html' => '<div class="start_show_action">',
-                        'end_html' => '</div>',
-                    ),
-                )
-            ))
+            // ->add(null, ActionColumn::class, array(
+            //     'title' => 'Actions',
+            //     'start_html' => '<div class="start_actions">',
+            //     'end_html' => '</div>',
+            //     'actions' => array(
+            //         array(
+            //             'route' => 'client_mensuration',
+            //             'route_parameters' => array(
+            //                 'client' => 'id',
+            //             ),
+            //             'icon' => 'glyphicon glyphicon-eye-open',
+            //             'label' => 'M',
+            //             'attributes' => array(
+            //                 'rel' => 'tooltip',
+            //                 'title' => 'Mensuration',
+            //                 'class' => 'btn btn-primary btn-xs',
+            //                 'role' => 'button',
+            //             ),
+            //             'start_html' => '<div class="start_show_action">',
+            //             'end_html' => '</div>',
+            //         ),
+            //     )
+            // ))
         ;
     }
 
@@ -139,7 +139,7 @@ class ClientsDatatable extends AbstractDatatable
      */
     public function getEntity()
     {
-        return 'App\Entity\Clients';
+        return 'App\Entity\Produits';
     }
 
     /**
@@ -147,6 +147,6 @@ class ClientsDatatable extends AbstractDatatable
      */
     public function getName()
     {
-        return 'client_datatable';
+        return 'Produits_datatable';
     }
 }

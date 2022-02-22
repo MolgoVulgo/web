@@ -8,7 +8,7 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" href="{{ path('setting_type') }}">Type</a>
+      <a class="nav-link active" href="{{ path('setting_types') }}">Type de produits</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -20,5 +20,34 @@
       <a class="nav-link" href="#">Configuration</a>
     </li>
 </ul>
+<div class=row>
+  <div class="col">
+    <a class="btn btn-primary" href="{{ path('setting_types_add') }}" role="button">ajout</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table">
+     <thead>
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Commentaire</th>
+        <th>Action<th>
+      </th>
+      </thead>
+      <tbody>
+        {% for type in types %}
+          <tr data-id="{{type.id}}">
+            <td>{{type.id }}</td>
+            <td>{{type.nom}}</td>
+            <td>{{type.commentaire}}</td>
+            <td></td>
+          </tr>
+        {% endfor %}
+      </tbody>  
+    <table>  
+  </div>
+</div>
 
 {% endblock %}
