@@ -57,6 +57,10 @@ class ProduitsDatatable extends AbstractDatatable
             'dom' => 'lrtip',
         ));
 
+        $this->extensions->set(array(
+            'responsive' => true,
+        ));
+        
         // $this->extensions->set([
         //     'buttons' => [
         //        'create_buttons' => [
@@ -98,13 +102,22 @@ class ProduitsDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('types', Column::class, array(
-                'title' => 'Genre',
+            ->add('types.nom', Column::class, array(
+                'title' => 'Types',
                 'searchable' => true,
                 'orderable' => true,
             ))
             ->add('taille', Column::class, array(
                 'title' => 'taille',
+                'searchable' => true,
+                'orderable' => true,
+            ))
+            ->add('stock', Column::class, array(
+                'title' => 'stock',
+                'orderable' => true,
+            ))            
+            ->add('prix', Column::class, array(
+                'title' => 'prix',
                 'searchable' => true,
                 'orderable' => true,
             ))

@@ -32,6 +32,12 @@ class Produits
     #[ORM\Column(type: 'string', length: 255)]
     private $designation;
 
+    #[ORM\Column(type: 'integer')]
+    private $stock = 0;
+
+    #[ORM\Column(type: 'string', length: 5, nullable: true)]
+    private $genre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,12 +67,12 @@ class Produits
         return $this;
     }
 
-    public function getTaille(): ?int
+    public function getTaille(): ?string
     {
         return $this->taille;
     }
 
-    public function setTaille(?int $taille): self
+    public function setTaille(?string $taille): self
     {
         $this->taille = $taille;
 
@@ -105,6 +111,30 @@ class Produits
     public function setDesignation(string $designation): self
     {
         $this->designation = $designation;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?string $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }

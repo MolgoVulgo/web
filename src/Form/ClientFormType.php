@@ -36,6 +36,7 @@ class ClientFormType extends AbstractType
                     'Homme' => "homme",
                     'Femme' => "femme",
                 ],
+                'placeholder' => 'Choisir Genre',
             ])
             ->add('enregistrer',SubmitType::class,[
                 'label' => 'Enregistrer'

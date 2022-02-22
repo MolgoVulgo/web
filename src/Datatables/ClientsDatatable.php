@@ -57,6 +57,9 @@ class ClientsDatatable extends AbstractDatatable
             'dom' => 'lrtip',
         ));
 
+        $this->extensions->set(array(
+            'responsive' => true,
+        ));
         // $this->extensions->set([
         //     'buttons' => [
         //        'create_buttons' => [

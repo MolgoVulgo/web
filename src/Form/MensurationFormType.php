@@ -17,85 +17,81 @@ class MensurationFormType extends AbstractType
 
         $builder
             ->add('hauteurTailleSol', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('longueurBasLegerementPlie', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('hauteurEncolureSol', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('taille', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourCou', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('carrureDevant', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('carrureDos', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourTaille', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourHanche', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourBassin', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourGenou', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourCheville', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('hauteurEcolureTailleDevant', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('hauteurEncolurSaillant', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('hauteurTailleGenou', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourBiceps', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourAvantBras', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourPoignet', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourCuisse', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('tourMollet', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
             ->add('hauteurEncolureTailleDos', NumberType::class,[
-                'required' => false,
+                'required' => true
             ])
-            ->add('enregistrer', SubmitType::class,[
-                'required' => false,
-            ])
-            ->add('produits', SubmitType::class,[
-                'required' => false,
-            ]);
+            ->add('enregistrer', SubmitType::class)
+            ->add('produits', SubmitType::class);
             // femme selement
             if($this->genre == 'femme'){
                 $builder->add('tourPoitrine', NumberType::class,[
-                'required' => false,
-            ])
+                    'required' => true
+                ])
                     ->add('encartSaillantPoitrine', NumberType::class,[
-                'required' => false,
-            ])
+                        'required' => true
+                    ])
                     ->add('tourSousPoitrine', NumberType::class,[
-                'required' => false,
-            ]);
+                        'required' => true
+                    ]);
             }    
         ;
     }

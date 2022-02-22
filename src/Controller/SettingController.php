@@ -60,4 +60,25 @@ class SettingController extends AbstractController
             'typesForm' => $typesForm->createView(),
         ]);
     }
+
+    #[Route('/setting/events', name: 'setting_events')]
+    public function settingEvents(): Response
+    {
+     
+        $types = $this->em->getRepository(Types::class)->findAll();
+        return $this->render('settings/events.html.twig', [
+            'types' => $types,
+        ]);
+    }
+
+    #[Route('/setting/events/add', name: 'setting_events_add')]
+    public function settingEventsAdd(): Response
+    {
+     
+        $types = $this->em->getRepository(Types::class)->findAll();
+        return $this->render('settings/events.html.twig', [
+            'types' => $types,
+        ]);
+    }
 }
+
