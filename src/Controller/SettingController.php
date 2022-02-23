@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Frais;
+use App\Entity\FraisType;
 use App\Entity\Types;
+use App\Form\FraisTypeFormType;
 use App\Form\TypesFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +29,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/types', name: 'setting_types')]
+    #[Route('/setting/types', name: 'setting_produits')]
     public function settingType(): Response
     {
      
@@ -36,7 +39,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/types/add', name: 'setting_types_add')]
+    #[Route('/setting/types/add', name: 'setting_produits_add')]
     public function settingTypeAdd(Request $request): Response
     {
         $types = new Types;
@@ -44,7 +47,7 @@ class SettingController extends AbstractController
             TypesFormType::class, 
             $types, 
             [
-                'action' => $this->generateUrl('setting_types_add'),
+                'action' => $this->generateUrl('setting_produits_add'),
             ]
         );
 
@@ -61,23 +64,38 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/events', name: 'setting_events')]
-    public function settingEvents(): Response
+    #[Route('/setting/frais', name: 'setting_frais')]
+    public function settingFrais(): Response
     {
      
         $types = $this->em->getRepository(Types::class)->findAll();
-        return $this->render('settings/events.html.twig', [
+        return $this->render('settings/frais.html.twig', [
             'types' => $types,
         ]);
     }
 
-    #[Route('/setting/events/add', name: 'setting_events_add')]
-    public function settingEventsAdd(): Response
+    #[Route('/setting/frais/add', name: 'setting_frais_add')]
+    public function settingEventsAdd(Request $request): Response
     {
-     
-        $types = $this->em->getRepository(Types::class)->findAll();
-        return $this->render('settings/events.html.twig', [
-            'types' => $types,
+        $fraisType = new FraisType;
+        $fraisTypeForm = $this->createForm(
+            FraisTypeFormType::class, 
+            $fraisType, 
+            [
+                'action' => $this->generateUrl('setting_frais_add'),
+            ]
+        );
+
+        $fraisTypeForm->handleRequest($request);
+        if ($fraisTypeForm->isSubmitted() && $fraisTypeForm->isValid()) {
+
+            $fraisType = $fraisTypeForm->getData();
+            $this->em->persist($fraisType);
+            $this->em->flush();
+            
+        }
+        return $this->render('settings/typeAdd.html.twig', [
+            'fraisTypeForm' => $fraisTypeForm->createView(),
         ]);
     }
 }

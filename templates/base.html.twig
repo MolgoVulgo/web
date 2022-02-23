@@ -21,7 +21,7 @@
     <body>
         <div class="container-fluid">
             <div class="row justify-content-md-center mb-3">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{% block titre %}{% endblock %}</h5>
@@ -33,7 +33,7 @@
                 <div class="col-1">
                     {% include 'menu.html.twig' %}
                 </div>
-                <div class="col-8">
+                <div class="col">
                     {% block body %}{% endblock %}
                 </div>
             </div>        

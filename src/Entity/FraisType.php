@@ -2,29 +2,26 @@
 
 namespace App\Entity;
 
-use App\Repository\EvenementsRepository;
+use App\Repository\FraisTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EvenementsRepository::class)]
-class Evenements
+#[ORM\Entity(repositoryClass: FraisTypeRepository::class)]
+class FraisType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 20)]
+    private $code;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $lieu;
-
-    #[ORM\Column(type: 'date', nullable: true)]
-    private $date;
-
-    #[ORM\OneToMany(mappedBy: 'evenements', targetEntity: Frais::class)]
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Frais::class)]
     private $frais;
 
     public function __construct()
@@ -37,6 +34,18 @@ class Evenements
         return $this->id;
     }
 
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
     public function getNom(): ?string
     {
         return $this->nom;
@@ -45,30 +54,6 @@ class Evenements
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getLieu(): ?string
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(string $lieu): self
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
@@ -85,7 +70,7 @@ class Evenements
     {
         if (!$this->frais->contains($frai)) {
             $this->frais[] = $frai;
-            $frai->setEvenements($this);
+            $frai->setType($this);
         }
 
         return $this;
@@ -95,8 +80,8 @@ class Evenements
     {
         if ($this->frais->removeElement($frai)) {
             // set the owning side to null (unless already changed)
-            if ($frai->getEvenements() === $this) {
-                $frai->setEvenements(null);
+            if ($frai->getType() === $this) {
+                $frai->setType(null);
             }
         }
 

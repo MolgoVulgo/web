@@ -92,11 +92,11 @@ class ProduitsDatatable extends AbstractDatatable
         ));
 
         $this->columnBuilder
-            ->add('ref', Column::class, array(
-                'title' => 'ref',
-                'searchable' => true,
-                'orderable' => true,
-            ))
+            // ->add('ref', Column::class, array(
+            //     'title' => 'ref',
+            //     'searchable' => true,
+            //     'orderable' => true,
+            // ))
             ->add('designation', Column::class, array(
                 'title' => 'designation',
                 'searchable' => true,
@@ -116,11 +116,11 @@ class ProduitsDatatable extends AbstractDatatable
                 'title' => 'stock',
                 'orderable' => true,
             ))            
-            ->add('prix', Column::class, array(
-                'title' => 'prix',
-                'searchable' => true,
-                'orderable' => true,
-            ))
+            // ->add('prix', Column::class, array(
+            //     'title' => 'prix',
+            //     'searchable' => true,
+            //     'orderable' => true,
+            // ))
             // ->add(null, ActionColumn::class, array(
             //     'title' => 'Actions',
             //     'start_html' => '<div class="start_actions">',

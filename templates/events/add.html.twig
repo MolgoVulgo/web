@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Events{% endblock %}
+
+{% block titre %}Event/Nouveau{% endblock %}
+
+{% block body %}
+
+{{ form_start(eventForm) }}
+
+
+    <div class="row">
+        <div class="col">
+            {{form_row(eventForm.nom)}}
+        </div>
+        <div class="col">
+            {{form_row(eventForm.date)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{form_row(eventForm.lieu)}}
+        </div>
+    </div>
+
+            <ul id="frais-fields-list"
+            data-prototype="{{ form_widget(eventForm.frais.vars.prototype)|e }}"
+            data-widget-tags="{{ '<li></li>'|e }}"
+            data-widget-counter="{{ eventForm.frais|length }}">
+        {% for fraisField in eventForm.frais %}
+            <li>
+                {{ form_errors(fraisField) }}
+                {{ form_widget(fraisField) }}
+            </li>
+        {% endfor %}
+        </ul>
+
+        <button type="button"
+            class="add-collection-widget"
+            data-list-selector="#frais-fields-list">ajout frais</button>
+
+{{ form_end(eventForm) }}
+<script src="{{asset('js/fraisCollection.js')}}"></script>
+{% endblock %}

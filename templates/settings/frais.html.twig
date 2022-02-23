@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Evenements{% endblock %}
+{% block title %}Type de Frais{% endblock %}
 
-{% block titre %}Setting/Evenements{% endblock %}
+{% block titre %}Setting/Frais{% endblock %}
 
 {% block body %}
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" href="{{ path('setting_types') }}">Type de produits</a>
+      <a class="nav-link" href="{{ path('setting_produits') }}">Type de produits</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="{{ path('setting_events') }}">Evenements</a>
+      <a class="nav-link active" href="#">Type de frais</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -22,7 +22,7 @@
 </ul>
 <div class=row>
   <div class="col">
-    <a class="btn btn-primary" href="{{ path('setting_events_add') }}" role="button">ajout</a>
+    <a class="btn btn-primary" href="{{ path('setting_frais_add') }}" role="button">ajout</a>
   </div>
 </div>
 <div class="row">
