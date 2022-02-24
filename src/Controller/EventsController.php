@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenements;
 use App\Form\EventsFromType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
+
     #[Route('/events', name: 'events')]
     public function events(): Response
     {
@@ -47,7 +54,7 @@ class EventsController extends AbstractController
 
         }
 
-        return $this->render('events/add.html.twig', [
+        return $this->render('events/eventAdd.html.twig', [
             'eventForm' => $eventForm->createView(),
         ]);
     }

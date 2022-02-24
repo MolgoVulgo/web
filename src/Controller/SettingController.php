@@ -68,9 +68,9 @@ class SettingController extends AbstractController
     public function settingFrais(): Response
     {
      
-        $types = $this->em->getRepository(Types::class)->findAll();
+        $fraisTypes = $this->em->getRepository(FraisType::class)->findAll();
         return $this->render('settings/frais.html.twig', [
-            'types' => $types,
+            'fraisTypes' => $fraisTypes,
         ]);
     }
 
@@ -92,8 +92,18 @@ class SettingController extends AbstractController
             $fraisType = $fraisTypeForm->getData();
             $this->em->persist($fraisType);
             $this->em->flush();
+
+            if ($fraisTypeForm->getClickedButton() === $fraisTypeForm->get('enregistrerEtNouveau')){
+
+                return $this->redirectToRoute('setting_frais_add', []);
+
+            }else{
+
+                return $this->redirectToRoute('setting_frais', []);
+            }
             
         }
+
         return $this->render('settings/typeAdd.html.twig', [
             'fraisTypeForm' => $fraisTypeForm->createView(),
         ]);

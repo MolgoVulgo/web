@@ -24,7 +24,7 @@ class Evenements
     #[ORM\Column(type: 'date', nullable: true)]
     private $date;
 
-    #[ORM\OneToMany(mappedBy: 'evenements', targetEntity: Frais::class)]
+    #[ORM\OneToMany(mappedBy: 'evenements', targetEntity: Frais::class , cascade: ["persist"])]
     private $frais;
 
     public function __construct()
