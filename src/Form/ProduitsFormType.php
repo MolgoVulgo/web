@@ -20,14 +20,17 @@ class ProduitsFormType extends AbstractType
     {
         $builder
             ->add('ref',TextType::class)
-            ->add('taille',TextType::class)
+            ->add('taille',TextType::class,[
+                'required' => false,
+            ])
             ->add('genre', ChoiceType::class, [
                 'label' => 'Genre',
                 'choices'  => [
-                    'Homme' => "homme",
-                    'Femme' => "femme",
+                    'Homme' => "m",
+                    'Femme' => "f",
                 ],
                 'placeholder' => 'Choisir Genre',
+                'required' => false,
             ])
             ->add('prix',NumberType::class)
             ->add('code',TextType::class)

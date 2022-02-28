@@ -121,12 +121,28 @@ class ClientsDatatable extends AbstractDatatable
                         'route_parameters' => array(
                             'client' => 'id',
                         ),
-                        'icon' => 'glyphicon glyphicon-eye-open',
-                        'label' => 'M',
+                        'icon' => 'fa fa-ruler',
+                        'label' => '',
                         'attributes' => array(
                             'rel' => 'tooltip',
                             'title' => 'Mensuration',
-                            'class' => 'btn btn-primary btn-xs',
+                            'class' => 'btn btn-xs',
+                            'role' => 'button',
+                        ),
+                        'start_html' => '<div class="start_show_action">',
+                        'end_html' => '</div>',
+                    ),
+                    array(
+                        'route' => 'client_edit',
+                        'route_parameters' => array(
+                            'client' => 'id',
+                        ),
+                        'icon' => 'fa fa-pen-to-square',
+                        'label' => '',
+                        'attributes' => array(
+                            'rel' => 'tooltip',
+                            'title' => 'Edition',
+                            'class' => 'btn btn-xs',
                             'role' => 'button',
                         ),
                         'start_html' => '<div class="start_show_action">',

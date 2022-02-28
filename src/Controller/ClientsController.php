@@ -57,8 +57,8 @@ class ClientsController extends AbstractController
     }
 
 
-    #[Route('/clients/add', name: 'client_add')]
-    public function clientsAdd(Request $request): Response
+    #[Route('/client/add', name: 'client_add')]
+    public function clientAdd(Request $request): Response
     {
 
         $client = new Clients;
@@ -89,6 +89,42 @@ class ClientsController extends AbstractController
             'clientForm' => $clientForm->createView(),
         ]);
     }
+
+    #[Route('/client/{client}/edit', name: 'client_edit')]
+    public function clientEdit(Request $request, Clients $client) : Response
+    {
+
+        $client = $this->em->getRepository(clients::class)->find($client);
+        $clientForm = $this->createForm(
+            ClientFormType::class, 
+            $client, 
+            [
+                'action' => $this->generateUrl('client_edit',['client' => $client->getId()]),
+            ]
+        );
+
+        $clientForm->handleRequest($request);
+        if ($clientForm->isSubmitted() && $clientForm->isValid()) {
+
+            $client = $clientForm->getData();
+            $this->em->persist($client);
+            $this->em->flush();
+
+            if ($clientForm->getClickedButton() === $clientForm->get('mensuration')){
+                return $this->redirectToRoute('client_mensuration', [
+                    'client' => $client->getId(),
+                ]);
+            }
+
+            return $this->redirectToRoute('clients');
+        }
+
+        return $this->render('clients/clientAdd.html.twig', [
+            'clientForm' => $clientForm->createView(),
+        ]);
+    }
+
+
 
     #[Route('/clients/{client}/mensuration', name: 'client_mensuration')]
     public function clientMensuration(Request $request,Clients $client): Response

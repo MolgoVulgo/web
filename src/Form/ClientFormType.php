@@ -33,8 +33,8 @@ class ClientFormType extends AbstractType
             ->add('genre', ChoiceType::class, [
                 'label' => 'Genre',
                 'choices'  => [
-                    'Homme' => "homme",
-                    'Femme' => "femme",
+                    'Homme' => "m",
+                    'Femme' => "f",
                 ],
                 'placeholder' => 'Choisir Genre',
             ])

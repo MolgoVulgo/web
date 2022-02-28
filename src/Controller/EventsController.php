@@ -21,8 +21,10 @@ class EventsController extends AbstractController
     #[Route('/events', name: 'events')]
     public function events(): Response
     {
-        return $this->render('events.html.twig', [
 
+        $events = $this->em->getRepository(Evenements::class)->findAll();
+        return $this->render('events.html.twig', [
+            'events' => $events,
         ]);
     }
 
@@ -46,16 +48,22 @@ class EventsController extends AbstractController
             $this->em->persist($event);
             $this->em->flush();
             
-            // if ($clientForm->getClickedButton() === $clientForm->get('mensuration')){
-            //     return $this->redirectToRoute('client_mensuration', [
-            //         'client' => $client->getId(),
-            //     ]);
-            // }
+            return $this->redirectToRoute('events', []);
 
         }
 
         return $this->render('events/eventAdd.html.twig', [
             'eventForm' => $eventForm->createView(),
+        ]);
+    }
+
+    #[Route('/events/{id}/view', name: 'event_view')]
+    public function eventView($id): Response
+    {
+
+        $event = $this->em->getRepository(Evenements::class)->find($id);
+        return $this->render('events/eventView.html.twig', [
+            'event' => $event,
         ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
@@ -20,7 +22,7 @@ class Produits
     #[ORM\JoinColumn(nullable: false)]
     private $types;
 
-    #[ORM\Column(type: 'string', length: 5)]
+    #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $taille;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -37,6 +39,14 @@ class Produits
 
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $genre;
+
+    #[ORM\ManyToMany(targetEntity: Ventes::class, mappedBy: 'produits')]
+    private $ventes;
+
+    public function __construct()
+    {
+        $this->ventes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +145,33 @@ class Produits
     public function setGenre(?string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ventes>
+     */
+    public function getVentes(): Collection
+    {
+        return $this->ventes;
+    }
+
+    public function addVente(Ventes $vente): self
+    {
+        if (!$this->ventes->contains($vente)) {
+            $this->ventes[] = $vente;
+            $vente->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVente(Ventes $vente): self
+    {
+        if ($this->ventes->removeElement($vente)) {
+            $vente->removeProduit($this);
+        }
 
         return $this;
     }

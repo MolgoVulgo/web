@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FraisRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FraisRepository::class)]
@@ -20,8 +22,13 @@ class Frais
     #[ORM\JoinColumn(nullable: false)]
     private $type;
 
-    #[ORM\ManyToOne(targetEntity: Evenements::class, inversedBy: 'frais')]
+    #[ORM\ManyToMany(targetEntity: Evenements::class, mappedBy: 'frais')]
     private $evenements;
+
+    public function __construct()
+    {
+        $this->evenements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,14 +59,29 @@ class Frais
         return $this;
     }
 
-    public function getEvenements(): ?Evenements
+    /**
+     * @return Collection<int, Evenements>
+     */
+    public function getEvenements(): Collection
     {
         return $this->evenements;
     }
 
-    public function setEvenements(?Evenements $evenements): self
+    public function addEvenement(Evenements $evenement): self
     {
-        $this->evenements = $evenements;
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->addFrai($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenements $evenement): self
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            $evenement->removeFrai($this);
+        }
 
         return $this;
     }

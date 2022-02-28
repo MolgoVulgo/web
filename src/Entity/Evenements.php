@@ -24,12 +24,16 @@ class Evenements
     #[ORM\Column(type: 'date', nullable: true)]
     private $date;
 
-    #[ORM\OneToMany(mappedBy: 'evenements', targetEntity: Frais::class , cascade: ["persist"])]
+    #[ORM\ManyToMany(targetEntity: Frais::class, inversedBy: 'evenements', cascade: ["persist"])]
     private $frais;
+
+    #[ORM\OneToMany(mappedBy: 'events', targetEntity: Ventes::class)]
+    private $ventes;
 
     public function __construct()
     {
         $this->frais = new ArrayCollection();
+        $this->ventes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,7 +89,6 @@ class Evenements
     {
         if (!$this->frais->contains($frai)) {
             $this->frais[] = $frai;
-            $frai->setEvenements($this);
         }
 
         return $this;
@@ -93,13 +96,39 @@ class Evenements
 
     public function removeFrai(Frais $frai): self
     {
-        if ($this->frais->removeElement($frai)) {
+        $this->frais->removeElement($frai);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ventes>
+     */
+    public function getVentes(): Collection
+    {
+        return $this->ventes;
+    }
+
+    public function addVente(Ventes $vente): self
+    {
+        if (!$this->ventes->contains($vente)) {
+            $this->ventes[] = $vente;
+            $vente->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVente(Ventes $vente): self
+    {
+        if ($this->ventes->removeElement($vente)) {
             // set the owning side to null (unless already changed)
-            if ($frai->getEvenements() === $this) {
-                $frai->setEvenements(null);
+            if ($vente->getEvents() === $this) {
+                $vente->setEvents(null);
             }
         }
 
         return $this;
     }
+
 }

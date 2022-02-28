@@ -42,6 +42,14 @@ class Clients
     #[ORM\OneToOne(inversedBy: 'clients', targetEntity: Mensuration::class, cascade: ['persist', 'remove'])]
     private $mensuration;
 
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Ventes::class)]
+    private $ventes;
+
+    public function __construct()
+    {
+        $this->ventes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -151,6 +159,36 @@ class Clients
     public function setMensuration(?Mensuration $mensuration): self
     {
         $this->mensuration = $mensuration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ventes>
+     */
+    public function getVentes(): Collection
+    {
+        return $this->ventes;
+    }
+
+    public function addVente(Ventes $vente): self
+    {
+        if (!$this->ventes->contains($vente)) {
+            $this->ventes[] = $vente;
+            $vente->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVente(Ventes $vente): self
+    {
+        if ($this->ventes->removeElement($vente)) {
+            // set the owning side to null (unless already changed)
+            if ($vente->getClient() === $this) {
+                $vente->setClient(null);
+            }
+        }
 
         return $this;
     }
