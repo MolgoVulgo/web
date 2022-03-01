@@ -80,7 +80,7 @@ class MensurationFormType extends AbstractType
                 'required' => true
             ])
             ->add('enregistrer', SubmitType::class)
-            ->add('produits', SubmitType::class);
+            ->add('products', SubmitType::class);
             // femme selement
             if($this->genre == 'femme'){
                 $builder->add('tourPoitrine', NumberType::class,[

@@ -2,34 +2,34 @@
 
 namespace App\Entity;
 
-use App\Repository\VentesRepository;
+use App\Repository\SalesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: VentesRepository::class)]
-class Ventes
+#[ORM\Entity(repositoryClass: SalesRepository::class)]
+class Sales
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Clients::class, inversedBy: 'ventes', cascade: ["persist"])]
-    private $client;
+    #[ORM\ManyToOne(targetEntity: Customers::class, inversedBy: 'sales', cascade: ["persist"])]
+    private $customer;
 
-    #[ORM\ManyToMany(targetEntity: Produits::class, inversedBy: 'ventes', cascade: ["all"])]
-    private $produits;
+    #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'sales', cascade: ["all"])]
+    private $products;
 
-    #[ORM\ManyToOne(targetEntity: Evenements::class, inversedBy: 'ventes', cascade: ["persist"])]
+    #[ORM\ManyToOne(targetEntity: Evenements::class, inversedBy: 'sales', cascade: ["persist"])]
     private $events;
 
-    #[ORM\OneToMany(mappedBy: 'ventes', targetEntity: Commandes::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'sales', targetEntity: Commandes::class, cascade: ["persist"])]
     private $commandes;
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
+        $this->products = new ArrayCollection();
         $this->commandes = new ArrayCollection();
     }
 
@@ -38,38 +38,38 @@ class Ventes
         return $this->id;
     }
 
-    public function getClient(): ?Clients
+    public function getCustomer(): ?Customers
     {
-        return $this->client;
+        return $this->customer;
     }
 
-    public function setClient(?Clients $client): self
+    public function setCustomer(?Customers $customer): self
     {
-        $this->client = $client;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Produits>
+     * @return Collection<int, Products>
      */
-    public function getProduits(): Collection
+    public function getProducts(): Collection
     {
-        return $this->produits;
+        return $this->products;
     }
 
-    public function addProduit(Produits $produit): self
+    public function addProducts(Products $article): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
+        if (!$this->products->contains($article)) {
+            $this->products[] = $article;
         }
 
         return $this;
     }
 
-    public function removeProduit(Produits $produit): self
+    public function removeProducts(Products $article): self
     {
-        $this->produits->removeElement($produit);
+        $this->products->removeElement($article);
 
         return $this;
     }
@@ -98,7 +98,7 @@ class Ventes
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes[] = $commande;
-            $commande->setVentes($this);
+            $commande->setSales($this);
         }
 
         return $this;
@@ -108,8 +108,8 @@ class Ventes
     {
         if ($this->commandes->removeElement($commande)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getVentes() === $this) {
-                $commande->setVentes(null);
+            if ($commande->getSales() === $this) {
+                $commande->setSales(null);
             }
         }
 

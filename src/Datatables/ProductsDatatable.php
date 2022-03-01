@@ -8,11 +8,11 @@ use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Style;
 
 /**
- * Class ProduitsDatatable
+ * Class ProductsDatatable
  *
  * @package App\Datatables
  */
-class ProduitsDatatable extends AbstractDatatable
+class ProductsDatatable extends AbstractDatatable
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class ProduitsDatatable extends AbstractDatatable
             'data' => array('data1' => 1, 'data2' => 2),
             // cache for 10 pages
             'pipeline' => 25,
-            'url' => $this->router->generate('produits_list')
+            'url' => $this->router->generate('products_list')
             // 'type' => 'POST',
             // 'url' => $this->router->generate('cms_links_results')
             // https://github.com/stwe/DatatablesBundle/issues/742
@@ -127,9 +127,9 @@ class ProduitsDatatable extends AbstractDatatable
             //     'end_html' => '</div>',
             //     'actions' => array(
             //         array(
-            //             'route' => 'client_mensuration',
+            //             'route' => 'customer_mensuration',
             //             'route_parameters' => array(
-            //                 'client' => 'id',
+            //                 'customer' => 'id',
             //             ),
             //             'icon' => 'glyphicon glyphicon-eye-open',
             //             'label' => 'M',
@@ -152,7 +152,7 @@ class ProduitsDatatable extends AbstractDatatable
      */
     public function getEntity()
     {
-        return 'App\Entity\Produits';
+        return 'App\Entity\Products';
     }
 
     /**
@@ -160,6 +160,6 @@ class ProduitsDatatable extends AbstractDatatable
      */
     public function getName()
     {
-        return 'Produits_datatable';
+        return 'Products_datatable';
     }
 }

@@ -29,7 +29,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/types', name: 'setting_produits')]
+    #[Route('/setting/types', name: 'setting_products')]
     public function settingType(): Response
     {
      
@@ -39,7 +39,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/types/add', name: 'setting_produits_add')]
+    #[Route('/setting/types/add', name: 'setting_products_add')]
     public function settingTypeAdd(Request $request): Response
     {
         $types = new Types;
@@ -47,7 +47,7 @@ class SettingController extends AbstractController
             TypesFormType::class, 
             $types, 
             [
-                'action' => $this->generateUrl('setting_produits_add'),
+                'action' => $this->generateUrl('setting_products_add'),
             ]
         );
 

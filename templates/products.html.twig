@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block titre %}Products{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="{{ path('products_add') }}" role="button">ajout</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ sg_datatables_render(productsDatatable) }}
+    </div>
+</div>
+{% endblock %}

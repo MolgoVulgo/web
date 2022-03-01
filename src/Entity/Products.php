@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitsRepository;
+use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProduitsRepository::class)]
-class Produits
+#[ORM\Entity(repositoryClass: ProductsRepository::class)]
+class Products
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class Produits
     #[ORM\Column(type: 'string', length: 255)]
     private $ref;
 
-    #[ORM\ManyToOne(targetEntity: Types::class, inversedBy: 'produits')]
+    #[ORM\ManyToOne(targetEntity: Types::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private $types;
 
@@ -40,12 +40,12 @@ class Produits
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $genre;
 
-    #[ORM\ManyToMany(targetEntity: Ventes::class, mappedBy: 'produits')]
-    private $ventes;
+    #[ORM\ManyToMany(targetEntity: Sales::class, mappedBy: 'products')]
+    private $sales;
 
     public function __construct()
     {
-        $this->ventes = new ArrayCollection();
+        $this->sales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,26 +150,26 @@ class Produits
     }
 
     /**
-     * @return Collection<int, Ventes>
+     * @return Collection<int, Sales>
      */
-    public function getVentes(): Collection
+    public function getSales(): Collection
     {
-        return $this->ventes;
+        return $this->sales;
     }
 
-    public function addVente(Ventes $vente): self
+    public function addVente(Sales $vente): self
     {
-        if (!$this->ventes->contains($vente)) {
-            $this->ventes[] = $vente;
+        if (!$this->sales->contains($vente)) {
+            $this->sales[] = $vente;
             $vente->addProduit($this);
         }
 
         return $this;
     }
 
-    public function removeVente(Ventes $vente): self
+    public function removeVente(Sales $vente): self
     {
-        if ($this->ventes->removeElement($vente)) {
+        if ($this->sales->removeElement($vente)) {
             $vente->removeProduit($this);
         }
 

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientsRepository;
+use App\Repository\CustomersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ClientsRepository::class)]
-class Clients
+#[ORM\Entity(repositoryClass: CustomersRepository::class)]
+class Customers
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,15 +39,15 @@ class Clients
     #[ORM\Column(type: 'string', length: 5)]
     private $genre;
 
-    #[ORM\OneToOne(inversedBy: 'clients', targetEntity: Mensuration::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'customers', targetEntity: Mensuration::class, cascade: ['persist', 'remove'])]
     private $mensuration;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Ventes::class)]
-    private $ventes;
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sales::class)]
+    private $sales;
 
     public function __construct()
     {
-        $this->ventes = new ArrayCollection();
+        $this->sales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,29 +164,29 @@ class Clients
     }
 
     /**
-     * @return Collection<int, Ventes>
+     * @return Collection<int, Sales>
      */
-    public function getVentes(): Collection
+    public function getSales(): Collection
     {
-        return $this->ventes;
+        return $this->sales;
     }
 
-    public function addVente(Ventes $vente): self
+    public function addVente(Sales $vente): self
     {
-        if (!$this->ventes->contains($vente)) {
-            $this->ventes[] = $vente;
-            $vente->setClient($this);
+        if (!$this->sales->contains($vente)) {
+            $this->sales[] = $vente;
+            $vente->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeVente(Ventes $vente): self
+    public function removeVente(Sales $vente): self
     {
-        if ($this->ventes->removeElement($vente)) {
+        if ($this->sales->removeElement($vente)) {
             // set the owning side to null (unless already changed)
-            if ($vente->getClient() === $this) {
-                $vente->setClient(null);
+            if ($vente->getCustomer() === $this) {
+                $vente->setCustomer(null);
             }
         }
 

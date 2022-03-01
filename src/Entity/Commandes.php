@@ -13,22 +13,22 @@ class Commandes
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Ventes::class, inversedBy: 'commandes')]
-    private $ventes;
+    #[ORM\ManyToOne(targetEntity: Sales::class, inversedBy: 'commandes')]
+    private $sales;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getVentes(): ?Ventes
+    public function getSales(): ?Sales
     {
-        return $this->ventes;
+        return $this->sales;
     }
 
-    public function setVentes(?Ventes $ventes): self
+    public function setSales(?Sales $sales): self
     {
-        $this->ventes = $ventes;
+        $this->sales = $sales;
 
         return $this;
     }

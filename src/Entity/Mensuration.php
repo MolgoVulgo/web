@@ -85,8 +85,8 @@ class Mensuration
     #[ORM\Column(type: 'integer', nullable: true)]
     private $hauteurEncolureTailleDos;
 
-    #[ORM\OneToOne(mappedBy: 'mensuration', targetEntity: Clients::class, cascade: ['persist', 'remove'])]
-    private $clients;
+    #[ORM\OneToOne(mappedBy: 'mensuration', targetEntity: Customers::class, cascade: ['persist', 'remove'])]
+    private $customers;
 
     public function getId(): ?int
     {
@@ -381,24 +381,24 @@ class Mensuration
         return $this;
     }
 
-    public function getClients(): ?Clients
+    public function getCustomers(): ?Customers
     {
-        return $this->clients;
+        return $this->customers;
     }
 
-    public function setClients(?Clients $clients): self
+    public function setCustomers(?Customers $customers): self
     {
         // unset the owning side of the relation if necessary
-        if ($clients === null && $this->clients !== null) {
-            $this->clients->setMensuration(null);
+        if ($customers === null && $this->customers !== null) {
+            $this->customers->setMensuration(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($clients !== null && $clients->getMensuration() !== $this) {
-            $clients->setMensuration($this);
+        if ($customers !== null && $customers->getMensuration() !== $this) {
+            $customers->setMensuration($this);
         }
 
-        $this->clients = $clients;
+        $this->customers = $customers;
 
         return $this;
     }

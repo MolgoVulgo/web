@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Customer{% endblock %}
+
+{% block titre %}Customer/Nouveau{% endblock %}
+
+{% block body %}
+
+{{ form_start(customerForm) }}
+
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.prenom)}}
+    </div>
+    <div class="col">
+      {{form_row(customerForm.nom)}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.genre)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.email)}}
+    </div>
+    <div class="col">
+      {{form_row(customerForm.telephone)}}
+    </div>
+</div> 
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.adresse)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.codePostal)}}
+    </div>
+    <div class="col">
+      {{form_row(customerForm.ville)}}
+    </div>
+</div>   
+<div class="row">
+    <div class="col">
+       {{form_row(customerForm.enregistrer)}}
+    </div>
+    <div class="col">
+       {{form_row(customerForm.mensuration)}}
+    </div>
+</div>   
+
+{{ form_end(customerForm) }}
+
+{% endblock %}

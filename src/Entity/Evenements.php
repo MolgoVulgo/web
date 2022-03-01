@@ -27,13 +27,13 @@ class Evenements
     #[ORM\ManyToMany(targetEntity: Frais::class, inversedBy: 'evenements', cascade: ["persist"])]
     private $frais;
 
-    #[ORM\OneToMany(mappedBy: 'events', targetEntity: Ventes::class)]
-    private $ventes;
+    #[ORM\OneToMany(mappedBy: 'events', targetEntity: Sales::class)]
+    private $sales;
 
     public function __construct()
     {
         $this->frais = new ArrayCollection();
-        $this->ventes = new ArrayCollection();
+        $this->sales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,26 +102,26 @@ class Evenements
     }
 
     /**
-     * @return Collection<int, Ventes>
+     * @return Collection<int, Sales>
      */
-    public function getVentes(): Collection
+    public function getSales(): Collection
     {
-        return $this->ventes;
+        return $this->sales;
     }
 
-    public function addVente(Ventes $vente): self
+    public function addVente(Sales $vente): self
     {
-        if (!$this->ventes->contains($vente)) {
-            $this->ventes[] = $vente;
+        if (!$this->sales->contains($vente)) {
+            $this->sales[] = $vente;
             $vente->setEvents($this);
         }
 
         return $this;
     }
 
-    public function removeVente(Ventes $vente): self
+    public function removeVente(Sales $vente): self
     {
-        if ($this->ventes->removeElement($vente)) {
+        if ($this->sales->removeElement($vente)) {
             // set the owning side to null (unless already changed)
             if ($vente->getEvents() === $this) {
                 $vente->setEvents(null);

@@ -2,24 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Clients;
+use App\Entity\Customers;
 use App\Entity\Evenements;
-use App\Entity\Produits;
-use App\Entity\Ventes;
+use App\Entity\Products;
+use App\Entity\Sales;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VentesFormType extends AbstractType
+class SalesFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('client',EntityType::class, [
-                'label' => 'Clients',
-                'class' => Clients::class,
+            ->add('customer',EntityType::class, [
+                'label' => 'Customers',
+                'class' => Customers::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c');
                 },
@@ -35,22 +35,14 @@ class VentesFormType extends AbstractType
                 'choice_label' => 'nom',
                 'placeholder' => 'Choisir Nom',
             ])
-            ->add('produits',EntityType::class, [
-                'label' => 'Produits',
-                'class' => Produits::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('p');
-                },
-                'choice_label' => 'designation',
-                'placeholder' => 'Choisir Produit',
-            ])
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Ventes::class,
+            'data_class' => Sales::class,
         ]);
     }
 }

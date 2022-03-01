@@ -8,11 +8,11 @@ use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Style;
 
 /**
- * Class ClientsDatatable
+ * Class CustomersDatatable
  *
  * @package App\Datatables
  */
-class ClientsDatatable extends AbstractDatatable
+class CustomersDatatable extends AbstractDatatable
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class ClientsDatatable extends AbstractDatatable
             'data' => array('data1' => 1, 'data2' => 2),
             // cache for 10 pages
             'pipeline' => 25,
-            'url' => $this->router->generate('client_list')
+            'url' => $this->router->generate('customer_list')
             // 'type' => 'POST',
             // 'url' => $this->router->generate('cms_links_results')
             // https://github.com/stwe/DatatablesBundle/issues/742
@@ -117,9 +117,9 @@ class ClientsDatatable extends AbstractDatatable
                 'end_html' => '</div>',
                 'actions' => array(
                     array(
-                        'route' => 'client_mensuration',
+                        'route' => 'customer_mensuration',
                         'route_parameters' => array(
-                            'client' => 'id',
+                            'customer' => 'id',
                         ),
                         'icon' => 'fa fa-ruler',
                         'label' => '',
@@ -133,9 +133,9 @@ class ClientsDatatable extends AbstractDatatable
                         'end_html' => '</div>',
                     ),
                     array(
-                        'route' => 'client_edit',
+                        'route' => 'customer_edit',
                         'route_parameters' => array(
-                            'client' => 'id',
+                            'customer' => 'id',
                         ),
                         'icon' => 'fa fa-pen-to-square',
                         'label' => '',
@@ -158,7 +158,7 @@ class ClientsDatatable extends AbstractDatatable
      */
     public function getEntity()
     {
-        return 'App\Entity\Clients';
+        return 'App\Entity\Customers';
     }
 
     /**
@@ -166,6 +166,6 @@ class ClientsDatatable extends AbstractDatatable
      */
     public function getName()
     {
-        return 'client_datatable';
+        return 'customer_datatable';
     }
 }

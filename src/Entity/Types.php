@@ -18,15 +18,15 @@ class Types
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
-    #[ORM\OneToMany(mappedBy: 'types', targetEntity: Produits::class)]
-    private $produits;
+    #[ORM\OneToMany(mappedBy: 'types', targetEntity: Products::class)]
+    private $products;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $commentaire;
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,26 +47,26 @@ class Types
     }
 
     /**
-     * @return Collection<int, Produits>
+     * @return Collection<int, Products>
      */
-    public function getProduits(): Collection
+    public function getProducts(): Collection
     {
-        return $this->produits;
+        return $this->products;
     }
 
-    public function addProduit(Produits $produit): self
+    public function addProduit(Products $produit): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
+        if (!$this->products->contains($produit)) {
+            $this->products[] = $produit;
             $produit->setTypes($this);
         }
 
         return $this;
     }
 
-    public function removeProduit(Produits $produit): self
+    public function removeProduit(Products $produit): self
     {
-        if ($this->produits->removeElement($produit)) {
+        if ($this->products->removeElement($produit)) {
             // set the owning side to null (unless already changed)
             if ($produit->getTypes() === $this) {
                 $produit->setTypes(null);

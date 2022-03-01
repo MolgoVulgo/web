@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Ventes;
+use App\Entity\Sales;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Ventes|null find($id, $lockMode = null, $lockVersion = null)
- * @method Ventes|null findOneBy(array $criteria, array $orderBy = null)
- * @method Ventes[]    findAll()
- * @method Ventes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Sales|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Sales|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Sales[]    findAll()
+ * @method Sales[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VentesRepository extends ServiceEntityRepository
+class SalesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Ventes::class);
+        parent::__construct($registry, Sales::class);
     }
 
     // /**
-    //  * @return Ventes[] Returns an array of Ventes objects
+    //  * @return Sales[] Returns an array of Sales objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class VentesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Ventes
+    public function findOneBySomeField($value): ?Sales
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.exampleField = :val')
