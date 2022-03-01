@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\CommandeRepository;
+use App\Repository\orderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommandesRepository::class)]
-class Commandes
+#[ORM\Entity(repositoryClass: OrderRepository::class)]
+class Order
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Sales::class, inversedBy: 'commandes')]
+    #[ORM\ManyToOne(targetEntity: Sales::class, inversedBy: 'order')]
     private $sales;
 
     public function getId(): ?int

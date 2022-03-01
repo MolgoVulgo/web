@@ -2,21 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Mensuration;
+use App\Entity\Measurement ;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MensurationFormType extends AbstractType
+class MeasurementFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->genre = $options['genre'];
+        $this->gender = $options['gender'];
 
         $builder
-            ->add('hauteurTailleSol', NumberType::class,[
+            ->add('hauteurHeightSol', NumberType::class,[
                 'required' => true
             ])
             ->add('longueurBasLegerementPlie', NumberType::class,[
@@ -25,7 +25,7 @@ class MensurationFormType extends AbstractType
             ->add('hauteurEncolureSol', NumberType::class,[
                 'required' => true
             ])
-            ->add('taille', NumberType::class,[
+            ->add('height', NumberType::class,[
                 'required' => true
             ])
             ->add('tourCou', NumberType::class,[
@@ -37,7 +37,7 @@ class MensurationFormType extends AbstractType
             ->add('carrureDos', NumberType::class,[
                 'required' => true
             ])
-            ->add('tourTaille', NumberType::class,[
+            ->add('tourHeight', NumberType::class,[
                 'required' => true
             ])
             ->add('tourHanche', NumberType::class,[
@@ -49,16 +49,16 @@ class MensurationFormType extends AbstractType
             ->add('tourGenou', NumberType::class,[
                 'required' => true
             ])
-            ->add('tourCheville', NumberType::class,[
+            ->add('tourChecity', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurEcolureTailleDevant', NumberType::class,[
+            ->add('hauteurEcolureHeightDevant', NumberType::class,[
                 'required' => true
             ])
             ->add('hauteurEncolurSaillant', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurTailleGenou', NumberType::class,[
+            ->add('hauteurHeightGenou', NumberType::class,[
                 'required' => true
             ])
             ->add('tourBiceps', NumberType::class,[
@@ -76,13 +76,13 @@ class MensurationFormType extends AbstractType
             ->add('tourMollet', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurEncolureTailleDos', NumberType::class,[
+            ->add('hauteurEncolureHeightDos', NumberType::class,[
                 'required' => true
             ])
             ->add('enregistrer', SubmitType::class)
             ->add('products', SubmitType::class);
             // femme selement
-            if($this->genre == 'femme'){
+            if($this->gender == 'femme'){
                 $builder->add('tourPoitrine', NumberType::class,[
                     'required' => true
                 ])
@@ -99,8 +99,8 @@ class MensurationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Mensuration::class,
-            'genre' => null,
+            'data_class' => Measurement ::class,
+            'gender' => null,
         ]);
     }
 }

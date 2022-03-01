@@ -17,7 +17,7 @@
                 <tr>
                     <th>#</th>
                     <th>Event</th>
-                    <th>Lieu</th>
+                    <th>Location</th>
                     <th>Date</th>
                     <th>Sales</th>
                     <th>Frais</th>
@@ -28,14 +28,14 @@
             {% for event in events %}
                 <tr>
                     <td><a href="{{ path('event_view',{id:event.id}) }}">{{event.id}}</a></td>
-                    <td>{{event.nom}}</td>
-                    <td>{{event.lieu}}</td>
+                    <td>{{event.name}}</td>
+                    <td>{{event.location}}</td>
                     <td>{{event.date|date("d/m/Y")}}</td>
                     <td>Sales</td>
                     <td>
                         {% set fraisValeur = "0" %}
                         {% for frais in event.frais %}
-                           {% set fraisValeur = fraisValeur+ frais.prix %} 
+                           {% set fraisValeur = fraisValeur+ frais.price %} 
                         {% endfor %}
                         {{fraisValeur}} €
                     </td>

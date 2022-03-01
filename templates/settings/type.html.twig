@@ -11,7 +11,7 @@
       <a class="nav-link active" href="#">Type de products</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ path('setting_frais') }}">Type de frais</a>
+      <a class="nav-link" href="{{ path('setting_fees') }}">Type de frais</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -31,7 +31,7 @@
      <thead>
       <tr>
         <th>#</th>
-        <th>Nom</th>
+        <th>Name</th>
         <th>Commentaire</th>
         <th>Action<th>
       </th>
@@ -40,7 +40,7 @@
         {% for type in types %}
           <tr data-id="{{type.id}}">
             <td>{{type.id }}</td>
-            <td>{{type.nom}}</td>
+            <td>{{type.name}}</td>
             <td>{{type.commentaire}}</td>
             <td></td>
           </tr>

@@ -14,7 +14,7 @@ class TypesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class)
+            ->add('name',TextType::class)
             ->add('commentaire',TextType::class)
             ->add('enregistrer',SubmitType::class)
             ->add('enregistrerEtNouveau',SubmitType::class)

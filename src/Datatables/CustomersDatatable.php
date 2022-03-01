@@ -91,18 +91,18 @@ class CustomersDatatable extends AbstractDatatable
         ));
 
         $this->columnBuilder
-            ->add('nom', Column::class, array(
+            ->add('name', Column::class, array(
                 'title' => 'Last Name',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('prenom', Column::class, array(
+            ->add('firstName', Column::class, array(
                 'title' => 'First Name',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('genre', Column::class, array(
-                'title' => 'Genre',
+            ->add('gender', Column::class, array(
+                'title' => 'Gender',
                 'searchable' => true,
                 'orderable' => true,
             ))
@@ -117,7 +117,7 @@ class CustomersDatatable extends AbstractDatatable
                 'end_html' => '</div>',
                 'actions' => array(
                     array(
-                        'route' => 'customer_mensuration',
+                        'route' => 'customer_measurement',
                         'route_parameters' => array(
                             'customer' => 'id',
                         ),
@@ -125,7 +125,7 @@ class CustomersDatatable extends AbstractDatatable
                         'label' => '',
                         'attributes' => array(
                             'rel' => 'tooltip',
-                            'title' => 'Mensuration',
+                            'title' => 'Measurement ',
                             'class' => 'btn btn-xs',
                             'role' => 'button',
                         ),

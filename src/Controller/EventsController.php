@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Evenements;
+use App\Entity\Events;
 use App\Form\EventsFromType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +22,7 @@ class EventsController extends AbstractController
     public function events(): Response
     {
 
-        $events = $this->em->getRepository(Evenements::class)->findAll();
+        $events = $this->em->getRepository(Events::class)->findAll();
         return $this->render('events.html.twig', [
             'events' => $events,
         ]);
@@ -32,7 +32,7 @@ class EventsController extends AbstractController
     public function eventsAdd(Request $request): Response
     {
 
-        $event = new Evenements;
+        $event = new Events;
         $eventForm = $this->createForm(
             EventsFromType::class, 
             $event, 
@@ -61,7 +61,7 @@ class EventsController extends AbstractController
     public function eventView($id): Response
     {
 
-        $event = $this->em->getRepository(Evenements::class)->find($id);
+        $event = $this->em->getRepository(Events::class)->find($id);
         return $this->render('events/eventView.html.twig', [
             'event' => $event,
         ]);

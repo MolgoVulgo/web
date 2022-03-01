@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col">
-            {{form_row(eventForm.nom)}}
+            {{form_row(eventForm.name)}}
         </div>
         <div class="col">
             {{form_row(eventForm.date)}}
@@ -19,18 +19,18 @@
     </div>
     <div class="row">
         <div class="col">
-            {{form_row(eventForm.lieu)}}
+            {{form_row(eventForm.location)}}
         </div>
     </div>
 
         <ul id="frais-fields-list"
-            data-prototype="{{ form_widget(eventForm.frais.vars.prototype)|e }}"
+            data-prototype="{{ form_widget(eventForm.fees.vars.prototype)|e }}"
             data-widget-tags="{{ '<li></li>'|e }}"
-            data-widget-counter="{{ eventForm.frais|length }}">
-        {% for fraisField in eventForm.frais %}
+            data-widget-counter="{{ eventForm.fees|length }}">
+        {% for feesField in eventForm.fees %}
             <li>
-                {{ form_errors(fraisField) }}
-                {{ form_widget(fraisField) }}
+                {{ form_errors(feesField) }}
+                {{ form_widget(feesField) }}
             </li>
         {% endfor %}
         </ul>

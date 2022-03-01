@@ -23,10 +23,10 @@ class Products
     private $types;
 
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
-    private $taille;
+    private $height;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $prix;
+    private $price;
 
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
     private $code;
@@ -38,7 +38,7 @@ class Products
     private $stock = 0;
 
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
-    private $genre;
+    private $gender;
 
     #[ORM\ManyToMany(targetEntity: Sales::class, mappedBy: 'products')]
     private $sales;
@@ -77,26 +77,26 @@ class Products
         return $this;
     }
 
-    public function getTaille(): ?string
+    public function getHeight(): ?string
     {
-        return $this->taille;
+        return $this->height;
     }
 
-    public function setTaille(?string $taille): self
+    public function setHeight(?string $height): self
     {
-        $this->taille = $taille;
+        $this->height = $height;
 
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrice(): ?int
     {
-        return $this->prix;
+        return $this->price;
     }
 
-    public function setPrix(?int $prix): self
+    public function setPrice(?int $price): self
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
     }
@@ -137,14 +137,14 @@ class Products
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getGender(): ?string
     {
-        return $this->genre;
+        return $this->gender;
     }
 
-    public function setGenre(?string $genre): self
+    public function setGender(?string $gender): self
     {
-        $this->genre = $genre;
+        $this->gender = $gender;
 
         return $this;
     }

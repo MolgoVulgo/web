@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Evenements;
+use App\Entity\Events;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -16,13 +16,13 @@ class EventsFromType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class)
-            ->add('lieu',TextType::class)
+            ->add('name',TextType::class)
+            ->add('location',TextType::class)
             ->add('date',DateType::class,[
                 'widget' => 'single_text',
             ])
-            ->add('frais',CollectionType::class,[
-                'entry_type' => FraisFormType::class,
+            ->add('fees',CollectionType::class,[
+                'entry_type' => FeesFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
             ])
@@ -34,7 +34,7 @@ class EventsFromType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Evenements::class,
+            'data_class' => Events::class,
         ]);
     }
 }

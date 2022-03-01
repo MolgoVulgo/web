@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FraisTypeRepository;
+use App\Repository\FeesTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FraisTypeRepository::class)]
-class FraisType
+#[ORM\Entity(repositoryClass: FeesTypeRepository::class)]
+class FeesType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,14 +19,14 @@ class FraisType
     private $code;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $nom;
+    private $name;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Frais::class)]
-    private $frais;
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Fees::class)]
+    private $fees;
 
     public function __construct()
     {
-        $this->frais = new ArrayCollection();
+        $this->fees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,42 +46,42 @@ class FraisType
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Frais>
+     * @return Collection<int, Fees>
      */
-    public function getFrais(): Collection
+    public function getFees(): Collection
     {
-        return $this->frais;
+        return $this->fees;
     }
 
-    public function addFrai(Frais $frai): self
+    public function addFees(Fees $fees): self
     {
-        if (!$this->frais->contains($frai)) {
-            $this->frais[] = $frai;
-            $frai->setType($this);
+        if (!$this->fees->contains($fees)) {
+            $this->fees[] = $fees;
+            $fees->setType($this);
         }
 
         return $this;
     }
 
-    public function removeFrai(Frais $frai): self
+    public function removeFees(Fees $fees): self
     {
-        if ($this->frais->removeElement($frai)) {
+        if ($this->fees->removeElement($fees)) {
             // set the owning side to null (unless already changed)
-            if ($frai->getType() === $this) {
-                $frai->setType(null);
+            if ($fees->getType() === $this) {
+                $fees->setType(null);
             }
         }
 

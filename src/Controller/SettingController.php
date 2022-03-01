@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Frais;
-use App\Entity\FraisType;
+use App\Entity\Fees;
+use App\Entity\FeesType;
 use App\Entity\Types;
-use App\Form\FraisTypeFormType;
+use App\Form\FeesTypeFormType;
 use App\Form\TypesFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,48 +64,48 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/frais', name: 'setting_frais')]
-    public function settingFrais(): Response
+    #[Route('/setting/fees', name: 'setting_fees')]
+    public function settingFees(): Response
     {
      
-        $fraisTypes = $this->em->getRepository(FraisType::class)->findAll();
-        return $this->render('settings/frais.html.twig', [
-            'fraisTypes' => $fraisTypes,
+        $feesTypes = $this->em->getRepository(FeesType::class)->findAll();
+        return $this->render('settings/fees.html.twig', [
+            'feesTypes' => $feesTypes,
         ]);
     }
 
-    #[Route('/setting/frais/add', name: 'setting_frais_add')]
+    #[Route('/setting/fees/add', name: 'setting_fees_add')]
     public function settingEventsAdd(Request $request): Response
     {
-        $fraisType = new FraisType;
-        $fraisTypeForm = $this->createForm(
-            FraisTypeFormType::class, 
-            $fraisType, 
+        $feesType = new FeesType;
+        $feesTypeForm = $this->createForm(
+            FeesTypeFormType::class, 
+            $feesType, 
             [
-                'action' => $this->generateUrl('setting_frais_add'),
+                'action' => $this->generateUrl('setting_fees_add'),
             ]
         );
 
-        $fraisTypeForm->handleRequest($request);
-        if ($fraisTypeForm->isSubmitted() && $fraisTypeForm->isValid()) {
+        $feesTypeForm->handleRequest($request);
+        if ($feesTypeForm->isSubmitted() && $feesTypeForm->isValid()) {
 
-            $fraisType = $fraisTypeForm->getData();
-            $this->em->persist($fraisType);
+            $feesType = $feesTypeForm->getData();
+            $this->em->persist($feesType);
             $this->em->flush();
 
-            if ($fraisTypeForm->getClickedButton() === $fraisTypeForm->get('enregistrerEtNouveau')){
+            if ($feesTypeForm->getClickedButton() === $feesTypeForm->get('enregistrerEtNouveau')){
 
-                return $this->redirectToRoute('setting_frais_add', []);
+                return $this->redirectToRoute('setting_fees_add', []);
 
             }else{
 
-                return $this->redirectToRoute('setting_frais', []);
+                return $this->redirectToRoute('setting_fees', []);
             }
             
         }
 
         return $this->render('settings/typeAdd.html.twig', [
-            'fraisTypeForm' => $fraisTypeForm->createView(),
+            'feesTypeForm' => $feesTypeForm->createView(),
         ]);
     }
 }

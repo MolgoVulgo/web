@@ -102,13 +102,13 @@ class ProductsDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('types.nom', Column::class, array(
+            ->add('types.name', Column::class, array(
                 'title' => 'Types',
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('taille', Column::class, array(
-                'title' => 'taille',
+            ->add('height', Column::class, array(
+                'title' => 'height',
                 'searchable' => true,
                 'orderable' => true,
             ))
@@ -116,8 +116,8 @@ class ProductsDatatable extends AbstractDatatable
                 'title' => 'stock',
                 'orderable' => true,
             ))            
-            ->add('prix', Column::class, array(
-                'title' => 'prix',
+            ->add('price', Column::class, array(
+                'title' => 'price',
                 'searchable' => true,
                 'orderable' => true,
             ))
@@ -127,7 +127,7 @@ class ProductsDatatable extends AbstractDatatable
             //     'end_html' => '</div>',
             //     'actions' => array(
             //         array(
-            //             'route' => 'customer_mensuration',
+            //             'route' => 'customer_measurement ',
             //             'route_parameters' => array(
             //                 'customer' => 'id',
             //             ),
@@ -135,7 +135,7 @@ class ProductsDatatable extends AbstractDatatable
             //             'label' => 'M',
             //             'attributes' => array(
             //                 'rel' => 'tooltip',
-            //                 'title' => 'Mensuration',
+            //                 'title' => 'Measurement ',
             //                 'class' => 'btn btn-primary btn-xs',
             //                 'role' => 'button',
             //             ),

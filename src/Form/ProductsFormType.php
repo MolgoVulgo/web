@@ -20,19 +20,19 @@ class ProductsFormType extends AbstractType
     {
         $builder
             ->add('ref',TextType::class)
-            ->add('taille',TextType::class,[
+            ->add('height',TextType::class,[
                 'required' => false,
             ])
-            ->add('genre', ChoiceType::class, [
-                'label' => 'Genre',
+            ->add('gender', ChoiceType::class, [
+                'label' => 'Gender',
                 'choices'  => [
                     'Homme' => "m",
                     'Femme' => "f",
                 ],
-                'placeholder' => 'Choisir Genre',
+                'placeholder' => 'Choisir Gender',
                 'required' => false,
             ])
-            ->add('prix',NumberType::class)
+            ->add('price',NumberType::class)
             ->add('code',TextType::class)
             ->add('designation',TextType::class)
             ->add('types',EntityType::class, [
@@ -41,7 +41,7 @@ class ProductsFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t');
                 },
-                'choice_label' => 'nom',
+                'choice_label' => 'name',
                 'placeholder' => 'Choisir Type',
             ])
             ->add('enregistrer',SubmitType::class)

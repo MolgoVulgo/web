@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Customers;
-use App\Entity\Evenements;
+use App\Entity\Events;
 use App\Entity\Products;
 use App\Entity\Sales;
 use Doctrine\ORM\EntityRepository;
@@ -23,17 +23,17 @@ class SalesFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c');
                 },
-                'choice_label' => 'nom',
-                'placeholder' => 'Choisir Nom',
+                'choice_label' => 'name',
+                'placeholder' => 'Choisir Name',
             ])
             ->add('events',EntityType::class, [
-                'label' => 'Evenements',
-                'class' => Evenements::class,
+                'label' => 'Events',
+                'class' => Events::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('e');
                 },
-                'choice_label' => 'nom',
-                'placeholder' => 'Choisir Nom',
+                'choice_label' => 'name',
+                'placeholder' => 'Choisir Name',
             ])
 
         ;

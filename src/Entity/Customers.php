@@ -16,31 +16,31 @@ class Customers
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $nom;
+    private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $prenom;
+    private $firstName;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $email;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $telephone;
+    private $phone;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $adresse;
+    private $address;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $codePostal;
+    private $zipCode;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $ville;
+    private $city;
 
     #[ORM\Column(type: 'string', length: 5)]
-    private $genre;
+    private $gender;
 
-    #[ORM\OneToOne(inversedBy: 'customers', targetEntity: Mensuration::class, cascade: ['persist', 'remove'])]
-    private $mensuration;
+    #[ORM\OneToOne(inversedBy: 'customers', targetEntity: Measurement ::class, cascade: ['persist', 'remove'])]
+    private $measurement ;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sales::class)]
     private $sales;
@@ -55,26 +55,26 @@ class Customers
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->prenom;
+        return $this->firstName;
     }
 
-    public function setPrenom(?string $prenom): self
+    public function setFirstName(?string $firstName): self
     {
-        $this->prenom = $prenom;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -91,74 +91,74 @@ class Customers
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getPhone(): ?string
     {
-        return $this->telephone;
+        return $this->phone;
     }
 
-    public function setTelephone(?string $telephone): self
+    public function setPhone(?string $phone): self
     {
-        $this->telephone = $telephone;
+        $this->phone = $phone;
 
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adresse;
+        return $this->address;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setAddress(string $address): self
     {
-        $this->adresse = $adresse;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getCodePostal(): ?int
+    public function getZipCode(): ?int
     {
-        return $this->codePostal;
+        return $this->zipCode;
     }
 
-    public function setCodePostal(?int $codePostal): self
+    public function setZipCode(?int $zipCode): self
     {
-        $this->codePostal = $codePostal;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
 
-    public function getVille(): ?string
+    public function getCity(): ?string
     {
-        return $this->ville;
+        return $this->city;
     }
 
-    public function setVille(string $ville): self
+    public function setCity(string $city): self
     {
-        $this->ville = $ville;
+        $this->city = $city;
 
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getGender(): ?string
     {
-        return $this->genre;
+        return $this->gender;
     }
 
-    public function setGenre(string $genre): self
+    public function setGender(string $gender): self
     {
-        $this->genre = $genre;
+        $this->gender = $gender;
 
         return $this;
     }
 
-    public function getMensuration(): ?Mensuration
+    public function getMeasurement (): ?Measurement 
     {
-        return $this->mensuration;
+        return $this->measurement ;
     }
 
-    public function setMensuration(?Mensuration $mensuration): self
+    public function setMeasurement (?Measurement  $measurement ): self
     {
-        $this->mensuration = $mensuration;
+        $this->measurement  = $measurement ;
 
         return $this;
     }

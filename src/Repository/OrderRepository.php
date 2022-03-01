@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Commandes;
+use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Commandes|null find($id, $lockMode = null, $lockVersion = null)
- * @method Commandes|null findOneBy(array $criteria, array $orderBy = null)
- * @method Commandes[]    findAll()
- * @method Commandes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Order|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Order|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Order[]    findAll()
+ * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CommandesRepository extends ServiceEntityRepository
+class OrderRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Commandes::class);
+        parent::__construct($registry, Order::class);
     }
 
     // /**
-    //  * @return Commande[] Returns an array of Commande objects
+    //  * @return order[] Returns an array of order objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CommandesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Commande
+    public function findOneBySomeField($value): ?order
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

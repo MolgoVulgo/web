@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Customers;
-use App\Entity\Mensuration;
+use App\Entity\Measurement ;
 use App\Form\CustomerFormType;
-use App\Form\MensurationFormType;
+use App\Form\MeasurementFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Datatables\CustomersDatatable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,15 +77,15 @@ class CustomersController extends AbstractController
             $this->em->persist($customer);
             $this->em->flush();
             
-            if ($customerForm->getClickedButton() === $customerForm->get('mensuration')){
-                return $this->redirectToRoute('customer_mensuration', [
+            if ($customerForm->getClickedButton() === $customerForm->get('measurement')){
+                return $this->redirectToRoute('customer_measurement', [
                     'customer' => $customer->getId(),
                 ]);
             }
 
         }
 
-        return $this->render('customers/customerAdd.html.twig', [
+        return $this->render('Customers/customerAdd.html.twig', [
             'customerForm' => $customerForm->createView(),
         ]);
     }
@@ -110,8 +110,8 @@ class CustomersController extends AbstractController
             $this->em->persist($customer);
             $this->em->flush();
 
-            if ($customerForm->getClickedButton() === $customerForm->get('mensuration')){
-                return $this->redirectToRoute('customer_mensuration', [
+            if ($customerForm->getClickedButton() === $customerForm->get('measurement')){
+                return $this->redirectToRoute('customer_measurement', [
                     'customer' => $customer->getId(),
                 ]);
             }
@@ -126,37 +126,37 @@ class CustomersController extends AbstractController
 
 
 
-    #[Route('/customers/{customer}/mensuration', name: 'customer_mensuration')]
-    public function customerMensuration(Request $request,Customers $customer): Response
+    #[Route('/customers/{customer}/measurement', name: 'customer_measurement')]
+    public function customerMeasurement (Request $request,Customers $customer): Response
     {
         
-        $mensuration = $customer->getMensuration();
-        if (is_null($mensuration)) {
-            $mensuration = new Mensuration;
+        $measurement= $customer->getMeasurement ();
+        if (is_null($measurement)) {
+            $measurement= new Measurement ;
         }
             
-        $mensurationForm = $this->createForm(
-            MensurationFormType::class, 
-            $mensuration, 
+        $measurementForm = $this->createForm(
+            MeasurementFormType::class, 
+            $measurement, 
             [
-                'action' => $this->generateUrl('customer_mensuration',['customer' => $customer->getId()]),
-                'genre' => $customer->getGenre(),
+                'action' => $this->generateUrl('customer_measurement',['customer' => $customer->getId()]),
+                'gender' => $customer->getGender(),
             ]
         );
 
-        $mensurationForm->handleRequest($request);
-        if ($mensurationForm->isSubmitted() && $mensurationForm->isValid()) {
+        $measurementForm->handleRequest($request);
+        if ($measurementForm->isSubmitted() && $measurementForm->isValid()) {
 
-            $mensuration = $mensurationForm->getData();
-            $customer->setMensuration($mensuration);
+            $measurement= $measurementForm->getData();
+            $customer->setMeasurement ($measurement);
             $this->em->persist($customer);
             $this->em->flush();
 
         }
 
-        return $this->render('customers/mensuration.html.twig', [
-            'mensurationForm' => $mensurationForm->createView(),
-            'genre' => $customer->getGenre(),
+        return $this->render('customers/measurement.html.twig', [
+            'measurementForm' => $measurementForm->createView(),
+            'gender' => $customer->getGender(),
         ]);
     }
 

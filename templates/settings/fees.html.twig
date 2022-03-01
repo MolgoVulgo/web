@@ -22,7 +22,7 @@
 </ul>
 <div class=row>
   <div class="col">
-    <a class="btn btn-primary" href="{{ path('setting_frais_add') }}" role="button">ajout</a>
+    <a class="btn btn-primary" href="{{ path('setting_fees_add') }}" role="button">ajout</a>
   </div>
 </div>
 <div class="row">
@@ -32,16 +32,16 @@
       <tr>
         <th>#</th>
         <th>code</th>
-        <th>nom</th>
+        <th>name</th>
         <th>Action<th>
       </th>
       </thead>
       <tbody>
-        {% for fraisType in fraisTypes %}
-          <tr data-id="{{fraisType.id}}">
-            <td>{{fraisType.id }}</td>
-            <td>{{fraisType.code}}</td>
-            <td>{{fraisType.nom}}</td>
+        {% for feesType in feesTypes %}
+          <tr data-id="{{feesType.id}}">
+            <td>{{feesType.id }}</td>
+            <td>{{feesType.code}}</td>
+            <td>{{feesType.name}}</td>
             <td></td>
           </tr>
         {% endfor %}

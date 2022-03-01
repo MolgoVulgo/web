@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\FraisType;
+use App\Entity\FeesType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method FraisType|null find($id, $lockMode = null, $lockVersion = null)
- * @method FraisType|null findOneBy(array $criteria, array $orderBy = null)
- * @method FraisType[]    findAll()
- * @method FraisType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method FeesType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method FeesType|null findOneBy(array $criteria, array $orderBy = null)
+ * @method FeesType[]    findAll()
+ * @method FeesType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FraisTypeRepository extends ServiceEntityRepository
+class FeesTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FraisType::class);
+        parent::__construct($registry, FeesType::class);
     }
 
     // /**
-    //  * @return FraisType[] Returns an array of FraisType objects
+    //  * @return FeesType[] Returns an array of FeesType objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class FraisTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?FraisType
+    public function findOneBySomeField($value): ?FeesType
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

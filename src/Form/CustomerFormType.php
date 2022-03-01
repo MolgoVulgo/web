@@ -17,32 +17,32 @@ class CustomerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class,[])
-            ->add('prenom',TextType::class,[
+            ->add('name',TextType::class,[])
+            ->add('firstName',TextType::class,[
                 'required' => false,
             ])
             ->add('email', EmailType::class,[
                 'required' => false,
             ])
-            ->add('telephone', NumberType::class,[
+            ->add('phone', NumberType::class,[
                 'required' => false,
             ])
-            ->add('adresse',TextType::class)
-            ->add('codePostal', NumberType::class)
-            ->add('ville',TextType::class)
-            ->add('genre', ChoiceType::class, [
-                'label' => 'Genre',
+            ->add('address',TextType::class)
+            ->add('zipCode', NumberType::class)
+            ->add('city',TextType::class)
+            ->add('gender', ChoiceType::class, [
+                'label' => 'Gender',
                 'choices'  => [
                     'Homme' => "m",
                     'Femme' => "f",
                 ],
-                'placeholder' => 'Choisir Genre',
+                'placeholder' => 'Choisir Gender',
             ])
             ->add('enregistrer',SubmitType::class,[
                 'label' => 'Enregistrer'
             ])
-            ->add('mensuration',SubmitType::class,[
-                'label' => 'Prise de mensuration'
+            ->add('measurement',SubmitType::class,[
+                'label' => 'Prise de measurement '
             ])
         ;
     }

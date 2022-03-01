@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Mensuration;
+use App\Entity\Measurement ;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Mensuration|null find($id, $lockMode = null, $lockVersion = null)
- * @method Mensuration|null findOneBy(array $criteria, array $orderBy = null)
- * @method Mensuration[]    findAll()
- * @method Mensuration[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Measurement |null find($id, $lockMode = null, $lockVersion = null)
+ * @method Measurement |null findOneBy(array $criteria, array $orderBy = null)
+ * @method Measurement []    findAll()
+ * @method Measurement []    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MensurationRepository extends ServiceEntityRepository
+class MeasurementRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Mensuration::class);
+        parent::__construct($registry, Measurement ::class);
     }
 
     // /**
-    //  * @return Mensuration[] Returns an array of Mensuration objects
+    //  * @return Measurement [] Returns an array of Measurement  objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class MensurationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Mensuration
+    public function findOneBySomeField($value): ?Measurement 
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

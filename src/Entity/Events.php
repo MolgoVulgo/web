@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EvenementsRepository;
+use App\Repository\EventsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EvenementsRepository::class)]
-class Evenements
+#[ORM\Entity(repositoryClass: EventsRepository::class)]
+class Events
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,23 +16,23 @@ class Evenements
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $nom;
+    private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $lieu;
+    private $location;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private $date;
 
-    #[ORM\ManyToMany(targetEntity: Frais::class, inversedBy: 'evenements', cascade: ["persist"])]
-    private $frais;
+    #[ORM\ManyToMany(targetEntity: Fees::class, inversedBy: 'events', cascade: ["persist"])]
+    private $fees;
 
     #[ORM\OneToMany(mappedBy: 'events', targetEntity: Sales::class)]
     private $sales;
 
     public function __construct()
     {
-        $this->frais = new ArrayCollection();
+        $this->fees = new ArrayCollection();
         $this->sales = new ArrayCollection();
     }
 
@@ -41,26 +41,26 @@ class Evenements
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getLieu(): ?string
+    public function getLocation(): ?string
     {
-        return $this->lieu;
+        return $this->location;
     }
 
-    public function setLieu(string $lieu): self
+    public function setLocation(string $location): self
     {
-        $this->lieu = $lieu;
+        $this->location = $location;
 
         return $this;
     }
@@ -78,25 +78,25 @@ class Evenements
     }
 
     /**
-     * @return Collection<int, Frais>
+     * @return Collection<int, Fees>
      */
-    public function getFrais(): Collection
+    public function getFees(): Collection
     {
-        return $this->frais;
+        return $this->fees;
     }
 
-    public function addFrai(Frais $frai): self
+    public function addFees(Fees $fees): self
     {
-        if (!$this->frais->contains($frai)) {
-            $this->frais[] = $frai;
+        if (!$this->fees->contains($fees)) {
+            $this->fees[] = $fees;
         }
 
         return $this;
     }
 
-    public function removeFrai(Frais $frai): self
+    public function removeFees(Fees $fees): self
     {
-        $this->frais->removeElement($frai);
+        $this->fees->removeElement($fees);
 
         return $this;
     }

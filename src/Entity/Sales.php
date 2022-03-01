@@ -21,16 +21,16 @@ class Sales
     #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'sales', cascade: ["all"])]
     private $products;
 
-    #[ORM\ManyToOne(targetEntity: Evenements::class, inversedBy: 'sales', cascade: ["persist"])]
+    #[ORM\ManyToOne(targetEntity: Events::class, inversedBy: 'sales', cascade: ["persist"])]
     private $events;
 
-    #[ORM\OneToMany(mappedBy: 'sales', targetEntity: Commandes::class, cascade: ["persist"])]
-    private $commandes;
+    #[ORM\OneToMany(mappedBy: 'sales', targetEntity: Order::class, cascade: ["persist"])]
+    private $order;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
+        $this->order = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,12 +74,12 @@ class Sales
         return $this;
     }
 
-    public function getEvents(): ?Evenements
+    public function getEvents(): ?Events
     {
         return $this->events;
     }
 
-    public function setEvents(?Evenements $events): self
+    public function setEvents(?Events $events): self
     {
         $this->events = $events;
 
@@ -87,29 +87,29 @@ class Sales
     }
 
     /**
-     * @return Collection<int, Commandes>
+     * @return Collection<int, Order>
      */
-    public function getCommandes(): Collection
+    public function getOrder(): Collection
     {
-        return $this->commandes;
+        return $this->order;
     }
 
-    public function addCommande(Commandes $commande): self
+    public function addorder(Order $order): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setSales($this);
+        if (!$this->order->contains($order)) {
+            $this->order[] = $order;
+            $order->setSales($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commandes $commande): self
+    public function removeorder(Order $order): self
     {
-        if ($this->commandes->removeElement($commande)) {
+        if ($this->order->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getSales() === $this) {
-                $commande->setSales(null);
+            if ($order->getSales() === $this) {
+                $order->setSales(null);
             }
         }
 

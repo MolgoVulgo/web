@@ -71,8 +71,8 @@ class ProductsController extends AbstractController
             $this->em->persist($customer);
             $this->em->flush();
             
-            // if ($customerForm->getClickedButton() === $customerForm->get('mensuration')){
-            //     return $this->redirectToRoute('customer_mensuration', [
+            // if ($customerForm->getClickedButton() === $customerForm->get('measurement ')){
+            //     return $this->redirectToRoute('customer_measurement ', [
             //         'customer' => $customer->getId(),
             //     ]);
             // }
