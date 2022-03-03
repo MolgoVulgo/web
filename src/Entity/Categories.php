@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TypesRepository;
+use App\Repository\CategoriesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TypesRepository::class)]
-class Types
+#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
+class Categories
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,11 +18,11 @@ class Types
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'types', targetEntity: Products::class)]
+    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
     private $products;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $commentaire;
+    private $note;
 
     public function __construct()
     {
@@ -76,14 +76,14 @@ class Types
         return $this;
     }
 
-    public function getCommentaire(): ?string
+    public function getNote(): ?string
     {
-        return $this->commentaire;
+        return $this->note;
     }
 
-    public function setCommentaire(?string $commentaire): self
+    public function setNote(?string $note): self
     {
-        $this->commentaire = $commentaire;
+        $this->note = $note;
 
         return $this;
     }

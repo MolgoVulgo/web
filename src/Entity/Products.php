@@ -18,17 +18,17 @@ class Products
     #[ORM\Column(type: 'string', length: 255)]
     private $ref;
 
-    #[ORM\ManyToOne(targetEntity: Types::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private $types;
+    private $categories;
 
     #[ORM\Column(type: 'string', length: 5, nullable: true)]
-    private $height;
+    private $height = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $price;
 
-    #[ORM\Column(type: 'string', length: 5, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $code;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -65,14 +65,14 @@ class Products
         return $this;
     }
 
-    public function getTypes(): ?Types
+    public function getCategories(): ?Categories
     {
-        return $this->types;
+        return $this->categories;
     }
 
-    public function setTypes(?Types $types): self
+    public function setCategories(?Categories $categories): self
     {
-        $this->types = $types;
+        $this->categories = $categories;
 
         return $this;
     }

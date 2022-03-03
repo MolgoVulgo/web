@@ -33,11 +33,11 @@
                     <td>{{event.date|date("d/m/Y")}}</td>
                     <td>Sales</td>
                     <td>
-                        {% set fraisValeur = "0" %}
-                        {% for frais in event.frais %}
-                           {% set fraisValeur = fraisValeur+ frais.price %} 
+                        {% set feesValue = "0" %}
+                        {% for fees in event.fees %}
+                           {% set feesValue = feesValue+ fees.price %} 
                         {% endfor %}
-                        {{fraisValeur}} €
+                        {{feesValue}} €
                     </td>
                     <td>Chiffres</td>
                 </tr>    

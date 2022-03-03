@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Fees;
 use App\Entity\FeesType;
-use App\Entity\Types;
+use App\Entity\Categories;
 use App\Form\FeesTypeFormType;
-use App\Form\TypesFormType;
+use App\Form\CategoriesFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ class SettingController extends AbstractController
         $this->em = $entityManager;
     }
 
-
+    // General //
     #[Route('/settings', name: 'settings')]
     public function setting(): Response
     {
@@ -29,71 +29,81 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/setting/types', name: 'setting_products')]
+    #[Route('/setting/category', name: 'setting_categories')]
     public function settingType(): Response
     {
      
-        $types = $this->em->getRepository(Types::class)->findAll();
-        return $this->render('settings/type.html.twig', [
-            'types' => $types,
+        $categories = $this->em->getRepository(Categories::class)->findAll();
+        return $this->render('settings/category.html.twig', [
+            'categories' => $categories,
         ]);
     }
 
-    #[Route('/setting/types/add', name: 'setting_products_add')]
-    public function settingTypeAdd(Request $request): Response
+    // category products //
+    #[Route('/setting/category/add', name: 'setting_category_add')]
+    public function settingCategoryAdd(Request $request): Response
     {
-        $types = new Types;
-        $typesForm = $this->createForm(
-            TypesFormType::class, 
-            $types, 
+        $categories = new Categories;
+        $categoriesForm = $this->createForm(
+            CategoriesFormType::class, 
+            $categories, 
             [
-                'action' => $this->generateUrl('setting_products_add'),
+                'action' => $this->generateUrl('setting_category_add'),
             ]
         );
 
-        $typesForm->handleRequest($request);
-        if ($typesForm->isSubmitted() && $typesForm->isValid()) {
+        $categoriesForm->handleRequest($request);
+        if ($categoriesForm->isSubmitted() && $categoriesForm->isValid()) {
 
-            $types = $typesForm->getData();
-            $this->em->persist($types);
+            $categories = $categoriesForm->getData();
+            $this->em->persist($categories);
             $this->em->flush();
+
+            if ($categoriesForm->getClickedButton() === $categoriesForm->get('saveAndNew')){
+                return $this->redirectToRoute('setting_category_add', []);
+            }
+
+            return $this->redirectToRoute('setting_categories', []);
+
+            return $this->redirectToRoute('customers', []);
             
         }
-        return $this->render('settings/typeAdd.html.twig', [
-            'typesForm' => $typesForm->createView(),
+        return $this->render('settings/categoryAdd.html.twig', [
+            'categoriesForm' => $categoriesForm->createView(),
         ]);
     }
 
+    // fees //
     #[Route('/setting/fees', name: 'setting_fees')]
     public function settingFees(): Response
     {
      
-        $feesTypes = $this->em->getRepository(FeesType::class)->findAll();
+        $fees = $this->em->getRepository(FeesType::class)->findAll();
         return $this->render('settings/fees.html.twig', [
-            'feesTypes' => $feesTypes,
+            'fees' => $fees,
         ]);
     }
 
     #[Route('/setting/fees/add', name: 'setting_fees_add')]
     public function settingEventsAdd(Request $request): Response
     {
-        $feesType = new FeesType;
-        $feesTypeForm = $this->createForm(
+        $fees = new FeesType;
+        $feesForm = $this->createForm(
             FeesTypeFormType::class, 
-            $feesType, 
+            $fees, 
             [
                 'action' => $this->generateUrl('setting_fees_add'),
             ]
         );
 
-        $feesTypeForm->handleRequest($request);
-        if ($feesTypeForm->isSubmitted() && $feesTypeForm->isValid()) {
+        $feesForm->handleRequest($request);
+        if ($feesForm->isSubmitted() && $feesForm->isValid()) {
 
-            $feesType = $feesTypeForm->getData();
-            $this->em->persist($feesType);
+            $fees = $feesForm->getData();
+            $this->em->persist($fees);
             $this->em->flush();
 
-            if ($feesTypeForm->getClickedButton() === $feesTypeForm->get('enregistrerEtNouveau')){
+            if ($feesForm->getClickedButton() === $feesForm->get('saveAndNew')){
 
                 return $this->redirectToRoute('setting_fees_add', []);
 
@@ -104,8 +114,8 @@ class SettingController extends AbstractController
             
         }
 
-        return $this->render('settings/typeAdd.html.twig', [
-            'feesTypeForm' => $feesTypeForm->createView(),
+        return $this->render('settings/feesAdd.html.twig', [
+            'feesForm' => $feesForm->createView(),
         ]);
     }
 }

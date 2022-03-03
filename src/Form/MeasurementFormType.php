@@ -16,7 +16,7 @@ class MeasurementFormType extends AbstractType
         $this->gender = $options['gender'];
 
         $builder
-            ->add('hauteurHeightSol', NumberType::class,[
+            ->add('hauteurTailleSol', NumberType::class,[
                 'required' => true
             ])
             ->add('longueurBasLegerementPlie', NumberType::class,[
@@ -37,7 +37,7 @@ class MeasurementFormType extends AbstractType
             ->add('carrureDos', NumberType::class,[
                 'required' => true
             ])
-            ->add('tourHeight', NumberType::class,[
+            ->add('tourTaille', NumberType::class,[
                 'required' => true
             ])
             ->add('tourHanche', NumberType::class,[
@@ -52,13 +52,13 @@ class MeasurementFormType extends AbstractType
             ->add('tourChecity', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurEcolureHeightDevant', NumberType::class,[
+            ->add('hauteurEcolureTailleDevant', NumberType::class,[
                 'required' => true
             ])
             ->add('hauteurEncolurSaillant', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurHeightGenou', NumberType::class,[
+            ->add('hauteurTailleGenou', NumberType::class,[
                 'required' => true
             ])
             ->add('tourBiceps', NumberType::class,[
@@ -76,10 +76,10 @@ class MeasurementFormType extends AbstractType
             ->add('tourMollet', NumberType::class,[
                 'required' => true
             ])
-            ->add('hauteurEncolureHeightDos', NumberType::class,[
+            ->add('hauteurEncolureTailleDos', NumberType::class,[
                 'required' => true
             ])
-            ->add('enregistrer', SubmitType::class)
+            ->add('save', SubmitType::class)
             ->add('products', SubmitType::class);
             // femme selement
             if($this->gender == 'femme'){

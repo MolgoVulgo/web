@@ -83,9 +83,10 @@ class CustomersController extends AbstractController
                 ]);
             }
 
+            return $this->redirectToRoute('customers', []);
         }
 
-        return $this->render('Customers/customerAdd.html.twig', [
+        return $this->render('customers/customerAdd.html.twig', [
             'customerForm' => $customerForm->createView(),
         ]);
     }

@@ -102,23 +102,24 @@ class ProductsDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
             ))
-            ->add('types.name', Column::class, array(
+            ->add('categories.name', Column::class, array(
                 'title' => 'Types',
                 'searchable' => true,
                 'orderable' => true,
             ))
             ->add('height', Column::class, array(
                 'title' => 'height',
-                'searchable' => true,
+                'searchable' => false,
                 'orderable' => true,
             ))
             ->add('stock', Column::class, array(
                 'title' => 'stock',
+                'searchable' => false,
                 'orderable' => true,
             ))            
             ->add('price', Column::class, array(
                 'title' => 'price',
-                'searchable' => true,
+                'searchable' => false,
                 'orderable' => true,
             ))
             // ->add(null, ActionColumn::class, array(

@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Type de Products{% endblock %}
+{% block title %}Category of Products{% endblock %}
 
-{% block titre %}Setting/Type de Products{% endblock %}
+{% block titre %}Setting/Category of Products{% endblock %}
 
 {% block body %}
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Type de products</a>
+      <a class="nav-link active" href="#">Category of products</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ path('setting_fees') }}">Type de frais</a>
+      <a class="nav-link" href="{{ path('setting_fees') }}">Fees</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -22,7 +22,7 @@
 </ul>
 <div class=row>
   <div class="col">
-    <a class="btn btn-primary" href="{{ path('setting_products_add') }}" role="button">ajout</a>
+    <a class="btn btn-primary" href="{{ path('setting_category_add') }}" role="button">Add</a>
   </div>
 </div>
 <div class="row">
@@ -32,16 +32,16 @@
       <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Commentaire</th>
+        <th>Note</th>
         <th>Action<th>
       </th>
       </thead>
       <tbody>
-        {% for type in types %}
-          <tr data-id="{{type.id}}">
-            <td>{{type.id }}</td>
-            <td>{{type.name}}</td>
-            <td>{{type.commentaire}}</td>
+        {% for category in categories %}
+          <tr data-id="{{category.id}}">
+            <td>{{category.id }}</td>
+            <td>{{category.name}}</td>
+            <td>{{category.note}}</td>
             <td></td>
           </tr>
         {% endfor %}

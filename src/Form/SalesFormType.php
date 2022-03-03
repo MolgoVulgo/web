@@ -24,7 +24,7 @@ class SalesFormType extends AbstractType
                     return $er->createQueryBuilder('c');
                 },
                 'choice_label' => 'name',
-                'placeholder' => 'Choisir Name',
+                'placeholder' => 'Choice Name',
             ])
             ->add('events',EntityType::class, [
                 'label' => 'Events',
@@ -33,7 +33,7 @@ class SalesFormType extends AbstractType
                     return $er->createQueryBuilder('e');
                 },
                 'choice_label' => 'name',
-                'placeholder' => 'Choisir Name',
+                'placeholder' => 'Choice Name',
             ])
 
         ;

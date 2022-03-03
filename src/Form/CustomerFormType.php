@@ -33,13 +33,13 @@ class CustomerFormType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 'label' => 'Gender',
                 'choices'  => [
-                    'Homme' => "m",
-                    'Femme' => "f",
+                    'Man' => "m",
+                    'Wonam' => "f",
                 ],
-                'placeholder' => 'Choisir Gender',
+                'placeholder' => 'Choice Gender',
             ])
-            ->add('enregistrer',SubmitType::class,[
-                'label' => 'Enregistrer'
+            ->add('save',SubmitType::class,[
+                'label' => 'Save'
             ])
             ->add('measurement',SubmitType::class,[
                 'label' => 'Prise de measurement '

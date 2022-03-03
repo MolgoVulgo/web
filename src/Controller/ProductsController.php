@@ -67,16 +67,14 @@ class ProductsController extends AbstractController
         $productsForm->handleRequest($request);
         if ($productsForm->isSubmitted() && $productsForm->isValid()) {
 
-            $customer = $productsForm->getData();
-            $this->em->persist($customer);
+            $products = $productsForm->getData();
+            $this->em->persist($products);
             $this->em->flush();
             
-            // if ($customerForm->getClickedButton() === $customerForm->get('measurement ')){
-            //     return $this->redirectToRoute('customer_measurement ', [
-            //         'customer' => $customer->getId(),
-            //     ]);
-            // }
-
+            if ($productsForm->getClickedButton() === $productsForm->get('saveAndNew')){
+                return $this->redirectToRoute('products_add', []);
+            }
+            return $this->redirectToRoute('products', []);
         }
 
         return $this->render('products/productsAdd.html.twig', [

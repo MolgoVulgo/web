@@ -23,7 +23,7 @@ class FeesFormType extends AbstractType
                     return $er->createQueryBuilder('t');
                 },
                 'choice_label' => 'code',
-                'placeholder' => 'Choisir Type',
+                'placeholder' => 'Choice Type',
             ])
             ->add('price',NumberType::class)
         ;

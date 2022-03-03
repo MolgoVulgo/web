@@ -26,8 +26,8 @@ class EventsFromType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
             ])
-            ->add('enregistrer',SubmitType::class)
-            ->add('enregistrerEtNouveau',SubmitType::class)
+            ->add('save',SubmitType::class)
+            ->add('saveAndNew',SubmitType::class)
         ;
     }
 

@@ -16,8 +16,8 @@ class FeesTypeFormType extends AbstractType
         $builder
             ->add('code',TextType::class)
             ->add('name',TextType::class)            
-            ->add('enregistrer',SubmitType::class)
-            ->add('enregistrerEtNouveau',SubmitType::class);
+            ->add('save',SubmitType::class)
+            ->add('saveAndNew',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
