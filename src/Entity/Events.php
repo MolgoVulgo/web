@@ -104,27 +104,27 @@ class Events
     /**
      * @return Collection<int, Invoices>
      */
-    public function getSales(): Collection
+    public function getInvoices(): Collection
     {
         return $this->invoices;
     }
 
-    public function addVente(Invoices $vente): self
+    public function addInvoices(Invoices $invoices): self
     {
-        if (!$this->invoices->contains($vente)) {
-            $this->invoices[] = $vente;
-            $vente->setEvents($this);
+        if (!$this->invoices->contains($invoices)) {
+            $this->invoices[] = $invoices;
+            $invoices->setEvents($this);
         }
 
         return $this;
     }
 
-    public function removeVente(Invoices $vente): self
+    public function removeInvoices(Invoices $invoices): self
     {
-        if ($this->invoices->removeElement($vente)) {
+        if ($this->invoices->removeElement($invoices)) {
             // set the owning side to null (unless already changed)
-            if ($vente->getEvents() === $this) {
-                $vente->setEvents(null);
+            if ($invoices->getEvents() === $this) {
+                $invoices->setEvents(null);
             }
         }
 

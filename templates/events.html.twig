@@ -19,9 +19,9 @@
                     <th>Event</th>
                     <th>Location</th>
                     <th>Date</th>
-                    <th>Invoices</th>
                     <th>Frais</th>
                     <th>Chiffres</th>
+                    <th>C.A</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,6 @@
                     <td>{{event.name}}</td>
                     <td>{{event.location}}</td>
                     <td>{{event.date|date("d/m/Y")}}</td>
-                    <td>Invoices</td>
                     <td>
                         {% set feesValue = "0" %}
                         {% for fees in event.fees %}
@@ -39,7 +38,17 @@
                         {% endfor %}
                         {{feesValue}} €
                     </td>
-                    <td>Chiffres</td>
+                    <td>
+                        {% set invoiceCompute = "0" %}
+                        {% for invoice in event.invoices %}
+                           {% for line in invoice.invoiceLines %}
+                                {% set invoiceCompute = invoiceCompute + (line.quantity*line.price - ((line.quantity*line.price*line.discount)/100)) %}
+                           {% endfor %}
+                        {% endfor %}
+                        {{invoiceCompute}} €
+                    </td>
+                    <td> {% set ca = invoiceCompute - feesValue %}
+                    {{ca}} €</td>
                 </tr>    
             {% endfor %}
         </table>    

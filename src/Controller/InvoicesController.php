@@ -52,6 +52,7 @@ class InvoicesController extends AbstractController
         if ($invoicesForm->isSubmitted() && $invoicesForm->isValid()) {
 
             $invoices = $invoicesForm->getData();
+            $invoices->setDate(new \DateTime("NOW"));
             $this->em->persist($invoices);
             $this->em->flush();
         }

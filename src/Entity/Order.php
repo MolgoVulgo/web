@@ -21,12 +21,12 @@ class Order
         return $this->id;
     }
 
-    public function getSales(): ?Invoices
+    public function getInvoices(): ?Invoices
     {
         return $this->invoices;
     }
 
-    public function setSales(?Invoices $invoices): self
+    public function setInvoices(?Invoices $invoices): self
     {
         $this->invoices = $invoices;
 
