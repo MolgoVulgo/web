@@ -4,15 +4,17 @@ namespace App\Form;
 
 use App\Entity\Customers;
 use App\Entity\Events;
-use App\Entity\Products;
-use App\Entity\Sales;
+use App\Entity\Invoices;
+use App\Form\InvoicelinesFormType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SalesFormType extends AbstractType
+class InvoicesFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,6 +37,12 @@ class SalesFormType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Choice Name',
             ])
+            ->add('invoiceLines',CollectionType::class,[
+                'entry_type' => InvoicelinesFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+            ->add('Save',SubmitType::class)
 
         ;
     }
@@ -42,7 +50,7 @@ class SalesFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sales::class,
+            'data_class' => Invoices::class,
         ]);
     }
 }

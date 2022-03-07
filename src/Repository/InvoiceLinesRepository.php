@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\AccountLines;
+use App\Entity\InvoiceLines;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method AccountLines|null find($id, $lockMode = null, $lockVersion = null)
- * @method AccountLines|null findOneBy(array $criteria, array $orderBy = null)
- * @method AccountLines[]    findAll()
- * @method AccountLines[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method InvoiceLines|null find($id, $lockMode = null, $lockVersion = null)
+ * @method InvoiceLines|null findOneBy(array $criteria, array $orderBy = null)
+ * @method InvoiceLines[]    findAll()
+ * @method InvoiceLines[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AccountLinesRepository extends ServiceEntityRepository
+class InvoiceLinesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, AccountLines::class);
+        parent::__construct($registry, InvoiceLines::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(AccountLines $entity, bool $flush = true): void
+    public function add(InvoiceLines $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class AccountLinesRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(AccountLines $entity, bool $flush = true): void
+    public function remove(InvoiceLines $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {

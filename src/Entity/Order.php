@@ -13,22 +13,22 @@ class Order
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Sales::class, inversedBy: 'order')]
-    private $sales;
+    #[ORM\ManyToOne(targetEntity: Invoices::class, inversedBy: 'order')]
+    private $invoices;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSales(): ?Sales
+    public function getSales(): ?Invoices
     {
-        return $this->sales;
+        return $this->invoices;
     }
 
-    public function setSales(?Sales $sales): self
+    public function setSales(?Invoices $invoices): self
     {
-        $this->sales = $sales;
+        $this->invoices = $invoices;
 
         return $this;
     }

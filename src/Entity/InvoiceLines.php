@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AccountLinesRepository;
+use App\Repository\InvoiceLinesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AccountLinesRepository::class)]
-class AccountLines
+#[ORM\Entity(repositoryClass: InvoiceLinesRepository::class)]
+class InvoiceLines
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,17 +22,20 @@ class AccountLines
     private $price;
 
     #[ORM\Column(type: 'integer')]
-    private $discount;
+    private $discount = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $taxe;
+    private $taxe = 0;
 
-    #[ORM\Column(type: 'integer')]
-    private $subtotal;
+    #[ORM\ManyToMany(targetEntity: Invoices::class, mappedBy: 'invoiceLines', cascade: ["persist"])]
+    private $invoices;
+
+    #[ORM\ManyToOne(targetEntity: Products::class, inversedBy: 'invoiceLines', cascade: ["persist"])]
+    private $products;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,14 +91,41 @@ class AccountLines
         return $this;
     }
 
-    public function getSubtotal(): ?int
+    /**
+     * @return Collection<int, Invoices>
+     */
+    public function getInvoices(): Collection
     {
-        return $this->subtotal;
+        return $this->invoices;
     }
 
-    public function setSubtotal(int $subtotal): self
+    public function addInvoice(Invoices $invoice): self
     {
-        $this->subtotal = $subtotal;
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->addInvoiceLine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoices $invoice): self
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            $invoice->removeInvoiceLine($this);
+        }
+
+        return $this;
+    }
+
+    public function getProducts(): ?Products
+    {
+        return $this->products;
+    }
+
+    public function setProducts(?Products $products): self
+    {
+        $this->products = $products;
 
         return $this;
     }

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoices{% endblock %}
+
+{% block titre %}Invoices{% endblock %}
+
+{% block body %}
+
+{% set total = 0 %}
+{% set nbArticle = 0 %}
+
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="{{ path('invoices_add') }}" role="button">ajout</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <table>
+            <thead>
+                <th>Client</th>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Nb Article</th>
+                <th>Total</th>
+                <th>#</th>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    {% for line in invoice.invoiceLines %}
+                        {% set total = total + (line.price * line.quantity - ((line.price * line.quantity * line.discount)/100)) %}
+                        {% set nbArticle = nbArticle + 1 %}
+                    {% endfor %}
+                 <tr>                                   
+                    <td>{{invoice.customer.name}}</td>
+                    <td>{{invoice.events.name}}</td>
+                    <td>{{invoice.date|date("d-m-Y")}}</td>
+                    <td>{{nbArticle}}</td>
+                    <td>{{total}}</td>
+                    <td><a href="{{ path('invoice_view', {invoice:invoice.id}) }}">view</a></td>
+                 </tr>                       
+                {% endfor %}
+            </tbody>
+        </table    
+    </div>
+</div>
+{% endblock %}

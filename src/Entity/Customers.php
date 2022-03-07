@@ -42,12 +42,12 @@ class Customers
     #[ORM\OneToOne(inversedBy: 'customers', targetEntity: Measurement ::class, cascade: ['persist', 'remove'])]
     private $measurement ;
 
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sales::class)]
-    private $sales;
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoices::class)]
+    private $invoices;
 
     public function __construct()
     {
-        $this->sales = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,26 +164,26 @@ class Customers
     }
 
     /**
-     * @return Collection<int, Sales>
+     * @return Collection<int, Invoices>
      */
     public function getSales(): Collection
     {
-        return $this->sales;
+        return $this->invoices;
     }
 
-    public function addVente(Sales $vente): self
+    public function addVente(Invoices $vente): self
     {
-        if (!$this->sales->contains($vente)) {
-            $this->sales[] = $vente;
+        if (!$this->invoices->contains($vente)) {
+            $this->invoices[] = $vente;
             $vente->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeVente(Sales $vente): self
+    public function removeVente(Invoices $vente): self
     {
-        if ($this->sales->removeElement($vente)) {
+        if ($this->invoices->removeElement($vente)) {
             // set the owning side to null (unless already changed)
             if ($vente->getCustomer() === $this) {
                 $vente->setCustomer(null);
