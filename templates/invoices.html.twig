@@ -28,6 +28,8 @@
             </thead>
             <tbody>
                 {% for invoice in invoices %}
+                    {% set total = 0 %}
+                    {% set nbArticle = 0 %}
                     {% for line in invoice.invoiceLines %}
                         {% set total = total + (line.price * line.quantity - ((line.price * line.quantity * line.discount)/100)) %}
                         {% set nbArticle = nbArticle + 1 %}
