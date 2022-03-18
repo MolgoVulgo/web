@@ -5,9 +5,51 @@
 {% block titre %}Invoice{% endblock %}
 
 {% block body %}
+    <div class="row">Customer : {{ invoice.customer.name }} {{ invoice.customer.firstName }}</div>
+    <div class="row">Event : {{ invoice.events.date|date("d/m/Y") }} - {{ invoice.events.name }} - {{ invoice.events.location }}</div>
 
-    <pre>
-        {{ dump(invoice) }}
-    </pre>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>quantity</th>
+                        <th>price</th>
+                        <th>Discount</th>
+                        <th>subTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set subtotale = 0 %}
+                {% set total = 0 %}
+                {% for invoiceLine in invoice.invoiceLines %}
+                {% set subtotale = (invoiceLine.quantity * invoiceLine.price) - ((invoiceLine.quantity * invoiceLine.price) * invoiceLine.discount / 100)  %}
+                    <tr>
+                        <td>#</td>
+                        <td>{{invoiceLine.products.ref}}</td>
+                        <td>{{invoiceLine.quantity}}</td>
+                        <td>{{invoiceLine.price}}</td>
+                        <td>{{invoiceLine.discount}}</td>
+                        <td>{{subtotale}}</td>
+                        {% set total = total + subtotale %}
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="5">TVA</td>
+                        <td>{{(total-total/1.20)|number_format(2)}}
+                    </tr>                    <tr>
+                        <td colspan="5">Total TTC</td>
+                        <td>{{total}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
+    </div>    
+    
+   
+    
+
 
 {% endblock %}
