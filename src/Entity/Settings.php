@@ -16,6 +16,9 @@ class Settings
     #[ORM\Column(type: 'json')]
     private $codeSetting = [];
 
+    #[ORM\Column(type: 'json')]
+    private $value = [];
+
     #[ORM\Column(type: 'boolean')]
     private $configurable = false;
 
@@ -36,6 +39,18 @@ class Settings
         return $this;
     }
 
+    public function getValue(): ?array
+    {
+        return $this->value;
+    }
+
+    public function setValue(array $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+    
     public function getConfigurable(): ?bool
     {
         return $this->configurable;

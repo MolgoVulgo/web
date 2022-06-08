@@ -25,7 +25,7 @@ class MeasurementFormType extends AbstractType
             ->add('hauteurEncolureSol', NumberType::class,[
                 'required' => true
             ])
-            ->add('height', NumberType::class,[
+            ->add('Taille', NumberType::class,[
                 'required' => true
             ])
             ->add('tourCou', NumberType::class,[

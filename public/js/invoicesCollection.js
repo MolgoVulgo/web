@@ -1,8 +1,17 @@
 // add-collection-widget.js
+
+
+const sub_total = function(quantity,price,discount){
+
+    return quantity*price-(((quantity*price)*discount)/100);
+}
+
 $(function () {
+
     $('.add-collection-widget').on('click',(function (e) {
+        
         var list = $($(this).attr('data-list-selector'));
-        var table = $("#tableInvoice > tbody:last-child");
+        var table = $("#tableInvoice > tbody");
         // Try to find the counter of the list or use the length of the list
         var counter = list.data('widget-counter') || list.children().length;
 
@@ -34,8 +43,8 @@ $(function () {
         $.get(url, function( data ) {
 
             price.val(data.price)
-            totalLine = quantity*data.price-(((quantity*data.price)*discount)/100);
-            subtotal.val(totalLine);
+            //totalLine = quantity*data.price-(((quantity*data.price)*discount)/100);
+            subtotal.val(sub_total(quantity,data.price,discount));
 
           });
     })
@@ -47,8 +56,9 @@ $(function () {
         var discount = $(this).parents('tr').find('.discount').val();
         var subtotal = $(this).parents('tr').find('.subtotal');
 
-        totalLine = quantity*price-(((quantity*price)*discount)/100);
-        subtotal.val(totalLine);
+        //totalLine = quantity*price-(((quantity*price)*discount)/100);
+        subtotal.val(sub_total(quantity,price,discount));
 
     })
+
 });

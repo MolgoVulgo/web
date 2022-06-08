@@ -14,7 +14,7 @@ class Measurement
     private $id;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $hauteurHeightSol;
+    private $hauteurTailleSol;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $longueurBasLegerementPlie;
@@ -23,7 +23,7 @@ class Measurement
     private $hauteurEncolureSol;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $height;
+    private $Taille;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $tourCou;
@@ -41,7 +41,7 @@ class Measurement
     private $tourSousPoitrine;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $tourHeight;
+    private $tourTaille;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $tourHanche;
@@ -59,13 +59,13 @@ class Measurement
     private $encartSaillantPoitrine;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $hauteurEcolureHeightDevant;
+    private $hauteurEcolureTailleDevant;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $hauteurEncolurSaillant;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $hauteurHeightGenou;
+    private $hauteurTailleGenou;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $tourBiceps;
@@ -83,7 +83,7 @@ class Measurement
     private $tourMollet;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $hauteurEncolureHeightDos;
+    private $hauteurEncolureTailleDos;
 
     #[ORM\OneToOne(mappedBy: 'measurement ', targetEntity: Customers::class, cascade: ['persist', 'remove'])]
     private $customers;
@@ -93,14 +93,14 @@ class Measurement
         return $this->id;
     }
 
-    public function getHauteurHeightSol(): ?int
+    public function getHauteurTailleSol(): ?int
     {
-        return $this->hauteurHeightSol;
+        return $this->hauteurTailleSol;
     }
 
-    public function setHauteurHeightSol(?int $hauteurHeightSol): self
+    public function setHauteurTailleSol(?int $hauteurTailleSol): self
     {
-        $this->hauteurHeightSol = $hauteurHeightSol;
+        $this->hauteurTailleSol = $hauteurTailleSol;
 
         return $this;
     }
@@ -129,14 +129,14 @@ class Measurement
         return $this;
     }
 
-    public function getHeight(): ?int
+    public function getTaille(): ?int
     {
-        return $this->height;
+        return $this->Taille;
     }
 
-    public function setHeight(?int $height): self
+    public function setTaille(?int $Taille): self
     {
-        $this->height = $height;
+        $this->Taille = $Taille;
 
         return $this;
     }
@@ -201,14 +201,14 @@ class Measurement
         return $this;
     }
 
-    public function getTourHeight(): ?int
+    public function getTourTaille(): ?int
     {
-        return $this->tourHeight;
+        return $this->tourTaille;
     }
 
-    public function setTourHeight(?int $tourHeight): self
+    public function setTourTaille(?int $tourTaille): self
     {
-        $this->tourHeight = $tourHeight;
+        $this->tourTaille = $tourTaille;
 
         return $this;
     }
@@ -273,14 +273,14 @@ class Measurement
         return $this;
     }
 
-    public function getHauteurEcolureHeightDevant(): ?int
+    public function getHauteurEcolureTailleDevant(): ?int
     {
-        return $this->hauteurEcolureHeightDevant;
+        return $this->hauteurEcolureTailleDevant;
     }
 
-    public function setHauteurEcolureHeightDevant(?int $hauteurEcolureHeightDevant): self
+    public function setHauteurEcolureTailleDevant(?int $hauteurEcolureTailleDevant): self
     {
-        $this->hauteurEcolureHeightDevant = $hauteurEcolureHeightDevant;
+        $this->hauteurEcolureTailleDevant = $hauteurEcolureTailleDevant;
 
         return $this;
     }
@@ -297,14 +297,14 @@ class Measurement
         return $this;
     }
 
-    public function getHauteurHeightGenou(): ?int
+    public function getHauteurTailleGenou(): ?int
     {
-        return $this->hauteurHeightGenou;
+        return $this->hauteurTailleGenou;
     }
 
-    public function setHauteurHeightGenou(?int $hauteurHeightGenou): self
+    public function setHauteurTailleGenou(?int $hauteurTailleGenou): self
     {
-        $this->hauteurHeightGenou = $hauteurHeightGenou;
+        $this->hauteurTailleGenou = $hauteurTailleGenou;
 
         return $this;
     }
@@ -369,14 +369,14 @@ class Measurement
         return $this;
     }
 
-    public function getHauteurEncolureHeightDos(): ?int
+    public function getHauteurEncolureTailleDos(): ?int
     {
-        return $this->hauteurEncolureHeightDos;
+        return $this->hauteurEncolureTailleDos;
     }
 
-    public function setHauteurEncolureHeightDos(?int $hauteurEncolureHeightDos): self
+    public function setHauteurEncolureTailleDos(?int $hauteurEncolureTailleDos): self
     {
-        $this->hauteurEncolureHeightDos = $hauteurEncolureHeightDos;
+        $this->hauteurEncolureTailleDos = $hauteurEncolureTailleDos;
 
         return $this;
     }

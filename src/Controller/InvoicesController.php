@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Invoices;
 use App\Form\InvoicesFormType;
+use App\Form\OrdersFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class InvoicesController extends AbstractController
     #[Route('/invoices', name: 'invoices')]
     public function invoices(): Response
     {
-        $invoices = $this->em->getRepository(Invoices::class)->findAll();
+        $invoices = $this->em->getRepository(Invoices::class)->findBy(['type' => 1]);
         return $this->render('invoices.html.twig', [
             'invoices' => $invoices,
         ]);
@@ -59,6 +60,42 @@ class InvoicesController extends AbstractController
 
         return $this->render('invoices/invoicesAdd.html.twig', [
             'invoicesForm' => $invoicesForm->createView(),
+        ]);
+    }
+
+    #[Route('/orders', name: 'orders')]
+    public function orders(): Response
+    {
+        $orders = $this->em->getRepository(Invoices::class)->findBy(['type' => 2]);
+        return $this->render('orders.html.twig', [
+           'orders' => $orders,
+        ]);
+    }
+
+    #[Route('/orders/add', name: 'orders_add')]
+    public function ordersAdd(Request $request): Response
+    {
+        $orders = new Invoices;
+        $ordersForm = $this->createForm(
+            OrdersFormType::class, 
+            $orders, 
+            [
+                'action' => $this->generateUrl('orders_add'),
+            ]
+        );
+
+        $ordersForm->handleRequest($request);
+        if ($ordersForm->isSubmitted() && $ordersForm->isValid()) {
+
+            $orders = $ordersForm->getData();
+            $orders->setDate(new \DateTime("NOW"));
+            $orders->setType(2);
+            $this->em->persist($orders);
+            $this->em->flush();
+        }
+
+        return $this->render('invoices/ordersAdd.html.twig', [
+            'ordersForm' => $ordersForm->createView(),
         ]);
     }
 }

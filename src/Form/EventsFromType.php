@@ -18,7 +18,10 @@ class EventsFromType extends AbstractType
         $builder
             ->add('name',TextType::class)
             ->add('location',TextType::class)
-            ->add('date',DateType::class,[
+            ->add('startDate',DateType::class,[
+                'widget' => 'single_text',
+            ])
+            ->add('endDate',DateType::class,[
                 'widget' => 'single_text',
             ])
             ->add('fees',CollectionType::class,[

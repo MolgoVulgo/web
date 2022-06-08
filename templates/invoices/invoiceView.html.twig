@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="row">Customer : {{ invoice.customer.name }} {{ invoice.customer.firstName }}</div>
-    <div class="row">Event : {{ invoice.events.date|date("d/m/Y") }} - {{ invoice.events.name }} - {{ invoice.events.location }}</div>
+    <div class="row">Event : {{ invoice.events.startDate|date("d/m/Y") }} - {{ invoice.events.name }} - {{ invoice.events.location }}</div>
 
     <div class="row">
         <div class="col">

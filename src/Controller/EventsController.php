@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Events;
+use App\Entity\Fees;
 use App\Form\EventsFromType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,8 +63,12 @@ class EventsController extends AbstractController
     {
 
         $event = $this->em->getRepository(Events::class)->find($id);
+        $fees = $event->getFees();
+        $invoices = $event->getInvoices();
         return $this->render('events/eventView.html.twig', [
             'event' => $event,
+            'fees' => $fees,
+            'invoices' => $invoices,
         ]);
     }
 }

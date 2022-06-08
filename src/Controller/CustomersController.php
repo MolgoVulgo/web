@@ -155,7 +155,13 @@ class CustomersController extends AbstractController
 
         }
 
-        return $this->render('customers/measurement.html.twig', [
+        if ($customer->getGender() == 'male') {
+            $template = 'customers/measurement_m.html.twig';
+        }else{
+            $template = 'customers/measurement_w.html.twig';
+        }
+
+        return $this->render($template, [
             'measurementForm' => $measurementForm->createView(),
             'gender' => $customer->getGender(),
         ]);

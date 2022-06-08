@@ -25,19 +25,21 @@ class Invoices
     #[ORM\ManyToOne(targetEntity: Events::class, inversedBy: 'invoices', cascade: ["persist"])]
     private $events;
 
-    // #[ORM\OneToMany(mappedBy: 'invoices', targetEntity: Order::class, cascade: ["persist"])]
-    // private $order;
-
     #[ORM\ManyToMany(targetEntity: InvoiceLines::class, inversedBy: 'invoices', cascade: ["persist"])]
     private $invoiceLines;
 
     #[ORM\Column(type: 'date', options: ["default" => 'CURRENT_TIMESTAMP'])]
     private $date;
 
+    #[ORM\Column(type: 'integer')]
+    private $type = 1;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $downPayment;
+
     public function __construct()
     {
         //$this->products = new ArrayCollection();
-        //$this->order = new ArrayCollection();
         $this->invoiceLines = new ArrayCollection();
     }
 
@@ -94,36 +96,6 @@ class Invoices
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, Order>
-    //  */
-    // public function getOrder(): Collection
-    // {
-    //     return $this->order;
-    // }
-
-    // public function addorder(Order $order): self
-    // {
-    //     if (!$this->order->contains($order)) {
-    //         $this->order[] = $order;
-    //         $order->setSales($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeorder(Order $order): self
-    // {
-    //     if ($this->order->removeElement($order)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($order->getSales() === $this) {
-    //             $order->setSales(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
     /**
      * @return Collection<int, InvoiceLines>
      */
@@ -159,4 +131,29 @@ class Invoices
 
         return $this;
     }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDownPayment(): ?int
+    {
+        return $this->downPayment;
+    }
+
+    public function setDownPayment(?int $downPayment): self
+    {
+        $this->downPayment = $downPayment;
+
+        return $this;
+    }
+
 }

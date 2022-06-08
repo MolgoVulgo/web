@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Vente{% endblock %}
+
+{% block titre %}Vente/nouvelle{% endblock %}
+
+{% block body %}
+
+{% macro printInvoiceLineRow(invoiceLine) %}
+    <td>{{ form_widget(invoiceLine.products) }}</td>
+    <td>{{ form_widget(invoiceLine.quantity) }}</td>
+    <td>{{ form_widget(invoiceLine.price) }}</td>
+    <td>{{ form_widget(invoiceLine.discount) }}</td>
+    <td>{{ form_widget(invoiceLine.subtotal) }}</td>
+{% endmacro %}
+
+{% import _self as formMacros %}
+
+{{ form_start(ordersForm) }}
+
+    <div class="row">
+        <div class="col">{{ form_row(ordersForm.customer) }}</div>
+        <div class="col">{{ form_row(ordersForm.events) }}</div>
+    </div>
+        <div id="frais-fields-list"
+            data-prototype="{{ formMacros.printInvoiceLineRow(ordersForm.invoiceLines.vars.prototype)|e('html_attr') }}"
+            data-widget-tags="{{ '<td></td>'|e }}"
+            data-widget-counter="{{ ordersForm.invoiceLines|length }}">
+
+            <table id="tableInvoice" border='1'>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>quantity</th>
+                    <th>price</th>
+                    <th>Discount</th>
+                    <th>subTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for invoiceLine in ordersForm.invoiceLines %}
+                {{ formMacros.printInvoiceLineRow(invoiceLine) }}
+            {% endfor %}
+            </tbody> 
+              <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Down payment (30%)</td>
+      <td>{{ form_widget(ordersForm.downPayment)}}</td>
+    </tr>
+        <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total</td>
+      <td id="total"></td>
+    </tr>
+  </tfoot>     
+            </table>
+        </div>
+
+        <button type="button"
+            class="add-collection-widget"
+            data-list-selector="#frais-fields-list">ajout lines</button>
+
+
+{{ form_end(ordersForm) }}
+<script src="{{asset('js/invoicesCollection.js')}}"></script>
+{% endblock %}

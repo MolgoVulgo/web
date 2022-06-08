@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mensuration Customer{% endblock %}
+
+{% block titre %}Customer/Mensuration/Homme{% endblock %}
+
+{% block body %}
+
+
+  <div class="row">
+    <div class="col-6">
+      <img class="img img-thumbnail" src="{{ asset('images/mesuraration_'~ gender ~'.jpg') }}"/>
+    </div>
+    <div class="col-6">
+        {{ form_start(measurementForm) }}
+        <div class="row">   
+            <div class="col">(1){{form_row(measurementForm.hauteurTailleSol)}}</div>
+            <div class="col">(2){{form_row(measurementForm.longueurBasLegerementPlie)}}</div>
+        </div>
+        <div class="row">
+            <div class="col">(3){{form_row(measurementForm.hauteurEncolureSol)}}</div>
+            <div class="col">(4){{form_row(measurementForm.Taille)}}</div>
+        </div>
+        <div class="row">
+            <div class="col">(5){{form_row(measurementForm.tourCou)}}</div>
+            <div class="col">(6){{form_row(measurementForm.carrureDevant)}}</div>
+                    </div>
+        <div class="row">
+            <div class="col">(7){{form_row(measurementForm.carrureDos)}}</div>
+            <div class="col">(8){{form_row(measurementForm.tourTaille)}}</div>
+                    </div>
+        <div class="row">
+            <div class="col">(9){{form_row(measurementForm.tourHanche)}}</div>
+            <div class="col">(10){{form_row(measurementForm.tourBassin)}}</div>
+                    </div>
+        <div class="row">
+            <div class="col">(11){{form_row(measurementForm.tourGenou)}}</div>
+            <div class="col">(12){{form_row(measurementForm.tourChecity)}}</div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col">(13){{form_row(measurementForm.tourBiceps)}}</div>
+            <div class="col">(14){{form_row(measurementForm.hauteurEcolureTailleDevant)}}</div>
+            <div class="col">(15){{form_row(measurementForm.hauteurTailleGenou)}}</div>
+         </div>
+        <div class="row">
+            <div class="col">{{form_row(measurementForm.tourAvantBras)}}</div>
+            <div class="col">{{form_row(measurementForm.tourPoignet)}}</div>
+            <div class="col">{{form_row(measurementForm.tourCuisse)}}</div>
+            <div class="col">{{form_row(measurementForm.tourMollet)}}</div>
+            <div class="col">(20){{form_row(measurementForm.hauteurEncolurSaillant)}}</div>
+        </div>
+        <div class="row">
+                {% if gender == "femme" %}
+                    <div class="col">{{form_row(measurementForm.hauteurEncolureTailleDos)}}</div>
+                    <div class="col">{{form_row(measurementForm.tourPoitrine)}}</div>
+                    <div class="col">{{form_row(measurementForm.encartSaillantPoitrine)}}</div>
+                    <div class="col">{{form_row(measurementForm.tourSousPoitrine)}}</div>
+                {% else %}
+                    <div class="col-3">{{form_row(measurementForm.hauteurEncolureTailleDos)}}</div>    
+                {% endif %}
+            {{ form_end(measurementForm) }}
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

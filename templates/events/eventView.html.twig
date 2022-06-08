@@ -6,8 +6,47 @@
 
 {% block body %}
 
-<pre>
-    {{ dump(event) }}
-</pre>
+<div class="row">
+    <div class="col">
+        {{event.startDate|date("d/m/Y") }}-{{event.endDate|date("d/m/Y") }} {{event.name}} {{event.location}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+    fees - <a class="nav-link" href="{{ path('settings') }}">add</a>
+    <table class="table">
+        <thead>
+            <td>type</td>
+            <td>Price</td>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+        {% for fee in fees %}
+            <tr>
+                <td>{{fee.type.name}}</td>
+                <td>{{fee.price}}
+                    {% set total = total + fee.price %}
+                </td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td>Total</td>
+                <td>{{ total }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>    
+
+<div class="row">
+    <div class="col">
+    Invoices - <a class="nav-link" href="{{ path('settings') }}">add</a>
+        {% for invoice in invoices %}
+            <pre>
+                {{ dump(invoice) }}
+            </pre>
+        {% endfor %}
+    </div>
+</div>    
 
 {% endblock %}
