@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: ${APP_NAME}-php
+    build:
+      context: ./php
+    environment:
+      - DATABASE_URL=mysql://${USER_NAME}:${DB_PASSWORD}@wycc_dev-db:3306/${DB_NAME}
+    ports:
+      - '9000'
+    volumes:
+      - ./app:/var/www/symfony_docker
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+
+  nginx:
+    container_name: ${APP_NAME}-nginx
+    image: nginx:stable-alpine
+    ports:
+      - '80'
+    volumes:
+      - ./app:/var/www/symfony_docker
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf     
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+      - ./logs:/var/log/nginx 
+    environment:
+        # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
+      - VIRTUAL_HOST=ebm.wycc-insurance.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=ebm.wycc-insurance.com
+      - LETSENCRYPT_EMAIL=accounting@wycc-insurance.com
+    depends_on:
+      - php
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
