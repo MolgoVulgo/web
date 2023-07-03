@@ -44,5 +44,5 @@ services:
       NGINX_PROXY_CONTAINER: "nginx"
 networks:
   default:
-    external:
-      name: nginx-proxy
+    external: true
+    name: nginx-proxy

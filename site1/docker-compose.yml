@@ -6,7 +6,7 @@ services:
     build:
       context: ./php
     environment:
-      - DATABASE_URL=mysql://${USER_NAME}:${DB_PASSWORD}@wycc_dev-db:3306/${DB_NAME}
+      - DATABASE_URL=mysql://${USER_NAME}:${DB_PASSWORD}@${DB_URL}-db:${DB_PORT}/${DB_NAME}
     ports:
       - '9000'
     volumes:
@@ -26,14 +26,14 @@ services:
       - ./logs:/var/log/nginx 
     environment:
         # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
-      - VIRTUAL_HOST=ebm.wycc-insurance.com
-      - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=ebm.wycc-insurance.com
-      - LETSENCRYPT_EMAIL=accounting@wycc-insurance.com
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${VIRTUAL_PORT}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     depends_on:
       - php
 
 networks:
   default:
-    external:
       name: nginx-proxy
+      external: true
