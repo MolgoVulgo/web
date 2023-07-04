@@ -1,0 +1,4 @@
+app/*
+nginx-proxy/certs/*
+nginx-proxy/conf.d/*
+nginx-proxy/vhost.d/*
