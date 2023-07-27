@@ -45,6 +45,10 @@ class Customers
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoices::class)]
     private $invoices;
 
+    #[ORM\ManyToOne(inversedBy: 'customers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Country $country = null;
+
     public function __construct()
     {
         $this->invoices = new ArrayCollection();
@@ -189,6 +193,18 @@ class Customers
                 $vente->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

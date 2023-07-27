@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Country;
 use App\Entity\Customers;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,32 +20,51 @@ class CustomerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',TextType::class,[])
+            ->add('name',TextType::class,[
+                'label' => 'Nom'
+            ])
             ->add('firstName',TextType::class,[
+                'label' => 'Prénom',
                 'required' => false,
             ])
             ->add('email', EmailType::class,[
                 'required' => false,
             ])
             ->add('phone', NumberType::class,[
+                'label' => 'GSM',
                 'required' => false,
             ])
-            ->add('address',TextType::class)
-            ->add('zipCode', NumberType::class)
-            ->add('city',TextType::class)
+            ->add('address',TextType::class,[
+                'label' => 'Adresse',
+            ])
+            ->add('zipCode', NumberType::class,[
+                'label' => 'Code Postal',
+            ])
+            ->add('city',TextType::class,[
+                'label' => 'Ville',
+            ])
             ->add('gender', ChoiceType::class, [
-                'label' => 'Gender',
+                'label' => 'Genre',
                 'choices'  => [
-                    'Man' => "m",
-                    'Wonam' => "f",
+                    'Homme' => "m",
+                    'Femme' => "f",
                 ],
-                'placeholder' => 'Choice Gender',
+                'placeholder' => 'Choix',
+            ])
+            ->add('country',EntityType::class, [
+                'label' => 'Pays',
+                'class' => Country::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c');
+                },
+                'choice_label' => 'name',
+                'placeholder' => 'Choix',
             ])
             ->add('save',SubmitType::class,[
-                'label' => 'Save'
+                'label' => 'Sauvegarde'
             ])
             ->add('measurement',SubmitType::class,[
-                'label' => 'Prise de measurement '
+                'label' => 'Prise de mesure'
             ])
         ;
     }

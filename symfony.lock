@@ -95,6 +95,18 @@
     "nikic/php-parser": {
         "version": "v4.13.2"
     },
+    "omines/datatables-bundle": {
+        "version": "0.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "467488ddc00aa190c37a4357f226457d4dd6b339"
+        },
+        "files": [
+            "config/packages/datatables.yaml"
+        ]
+    },
     "psr/cache": {
         "version": "3.0.0"
     },
@@ -127,9 +139,6 @@
             "version": "1.0",
             "ref": "a8e5ae79a1eceec929a7393143c85ddf0ae0b4ff"
         }
-    },
-    "symfony/asset": {
-        "version": "v6.0.3"
     },
     "symfony/cache": {
         "version": "v6.0.3"
@@ -386,25 +395,6 @@
         "files": [
             "config/packages/web_profiler.yaml",
             "config/routes/web_profiler.yaml"
-        ]
-    },
-    "symfony/webpack-encore-bundle": {
-        "version": "1.14",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.10",
-            "ref": "2858aeed7e1d81a45365c049eb533cc8827e380b"
-        },
-        "files": [
-            "assets/app.js",
-            "assets/bootstrap.js",
-            "assets/controllers.json",
-            "assets/controllers/hello_controller.js",
-            "assets/styles/app.css",
-            "config/packages/webpack_encore.yaml",
-            "package.json",
-            "webpack.config.js"
         ]
     },
     "symfony/yaml": {

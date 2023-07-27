@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SettingController extends AbstractController
 {    
+    private $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

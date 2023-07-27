@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <table class="table table-hover">
+        <table id="tbl-event" class="table table-hover">
             <thead>
                 <tr>
                     <th>#</th>
@@ -26,8 +26,8 @@
             </thead>
             <tbody>
             {% for event in events %}
-                <tr>
-                    <td><a href="{{ path('event_view',{id:event.id}) }}">{{event.id}}</a></td>
+                <tr data-type="link" data-href="{{ path('event_view',{id:event.id}) }}">
+                    <td>{{event.id}}</td>
                     <td>{{event.name}}</td>
                     <td>{{event.location}}</td>
                     <td>{{event.startDate|date("d/m/Y")}} - {{event.endDate|date("d/m/Y")}}</td>

@@ -5,17 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+        <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/dataTables.responsive.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/functions.js') }}"></script>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"></styles>
         <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}"></styles>
         <link type="text/css" rel="stylesheet" href="{{ asset('css/responsive.bootstrap5.min.css') }}"></styles>
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}"></styles>
+        <link type="text/css" rel="stylesheet"  href="{{ asset('css/font-awesome.css') }}"></styles>
+        <link type="text/css" rel="stylesheet"  href="{{ asset('css/style.css') }}"></styles>
+
+
+        <!-- in the <head> section -->
+        <!--link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/-->
+
+        <!-- before the closing <body> tag -->
+        <!--script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script-->
+
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -33,10 +45,11 @@
                     {% include 'menu.html.twig' %}
                 </div>
                 <div class="col">
-                    {% block body %}{% endblock %}
+                    <div class="container">
+                        {% block body %}{% endblock %}
+                    </div>
                 </div>
             </div>        
         </div>
-        {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
     </body>
 </html>

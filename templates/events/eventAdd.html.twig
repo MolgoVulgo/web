@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-5">
             {{form_row(eventForm.location)}}
         </div>
     </div>
@@ -38,10 +38,10 @@
         {% endfor %}
         </ul>
 
-        <button type="button"
+        <!-- button type="button"
             class="add-collection-widget"
-            data-list-selector="#frais-fields-list">ajout frais</button>
+            data-list-selector="#frais-fields-list">ajout frais</button -->
 
 {{ form_end(eventForm) }}
-<script src="{{asset('js/fraisCollection.js')}}"></script>
+<!-- script src="{{asset('js/fraisCollection.js')}}"></script -->/
 {% endblock %}

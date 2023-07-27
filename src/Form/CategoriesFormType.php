@@ -14,10 +14,18 @@ class CategoriesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',TextType::class)
-            ->add('note',TextType::class)
-            ->add('save',SubmitType::class)
-            ->add('saveAndNew',SubmitType::class)
+            ->add('name',TextType::class,[
+                'label' => 'Nom',
+            ])
+            ->add('note',TextType::class,[
+                'label' => 'note',
+            ])
+            ->add('save',SubmitType::class,[
+                'label' => 'Sauvegarder',
+            ])
+            ->add('saveAndNew',SubmitType::class,[
+                'label' => 'Sauvegarder et nouveau',
+            ])
         ;
     }
 

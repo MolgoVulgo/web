@@ -28,7 +28,7 @@ class Invoices
     #[ORM\ManyToMany(targetEntity: InvoiceLines::class, inversedBy: 'invoices', cascade: ["persist"])]
     private $invoiceLines;
 
-    #[ORM\Column(type: 'date', options: ["default" => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'date')]
     private $date;
 
     #[ORM\Column(type: 'integer')]

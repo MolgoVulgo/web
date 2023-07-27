@@ -16,13 +16,19 @@ class EventsFromType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',TextType::class)
-            ->add('location',TextType::class)
+            ->add('name',TextType::class,[
+                'label' => 'Nom'
+            ])
+            ->add('location',TextType::class,[
+                'label' => 'Lieu'
+            ])
             ->add('startDate',DateType::class,[
                 'widget' => 'single_text',
+                'label' => 'Date de debut'
             ])
             ->add('endDate',DateType::class,[
                 'widget' => 'single_text',
+                'label' => 'Date de fin'
             ])
             ->add('fees',CollectionType::class,[
                 'entry_type' => FeesFormType::class,

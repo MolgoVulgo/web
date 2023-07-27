@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Events;
 use App\Entity\Invoices;
 use App\Form\InvoicesFormType;
 use App\Form\OrdersFormType;
@@ -13,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InvoicesController extends AbstractController
 {
+
+    private $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -62,6 +65,35 @@ class InvoicesController extends AbstractController
             'invoicesForm' => $invoicesForm->createView(),
         ]);
     }
+
+    #[Route('/invoices/add/{eventId}', name: 'event_invoices_add')]
+    public function EventInvoicesAdd($eventId,Request $request): Response
+    {
+        $invoices = new Invoices;
+        $invoices->setEvents($this->em->getRepository(Events::class)->find($eventId));
+
+        $invoicesForm = $this->createForm(
+            InvoicesFormType::class, 
+            $invoices, 
+            [
+                'action' => $this->generateUrl('invoices_add',['eventId' => $eventId]),
+            ]
+        );
+
+        $invoicesForm->handleRequest($request);
+        if ($invoicesForm->isSubmitted() && $invoicesForm->isValid()) {
+
+            $invoices = $invoicesForm->getData();
+            $invoices->setDate(new \DateTime("NOW"));
+            $this->em->persist($invoices);
+            $this->em->flush();
+        }
+
+        return $this->render('invoices/invoicesAdd.html.twig', [
+            'invoicesForm' => $invoicesForm->createView(),
+        ]);
+    }
+
 
     #[Route('/orders', name: 'orders')]
     public function orders(): Response

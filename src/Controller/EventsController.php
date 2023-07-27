@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
+    private $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

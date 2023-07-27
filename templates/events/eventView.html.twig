@@ -2,22 +2,34 @@
 
 {% block title %}Event{% endblock %}
 
-{% block titre %}Event/Location{% endblock %}
+{% block titre %}Event/Leu{% endblock %}
 
 {% block body %}
 
 <div class="row">
     <div class="col">
-        {{event.startDate|date("d/m/Y") }}-{{event.endDate|date("d/m/Y") }} {{event.name}} {{event.location}}
+        {{event.startDate|date("d/m/Y") }} - {{event.name|upper}} - {{event.location|upper}}
     </div>
 </div>
+
 <div class="row">
     <div class="col">
-    fees - <a class="nav-link" href="{{ path('settings') }}">add</a>
+    Facture - <a class="nav-link" href="{{ path('event_invoices_add', { 'event': event.id}) }}">Ajouter</a>
+        {% for invoice in invoices %}
+            <pre>
+                {{ dump(invoice) }}
+            </pre>
+        {% endfor %}
+    </div>
+</div>    
+
+<div class="row">
+    <div class="col">
+    Frais - <a class="nav-link" href="{{ path('settings') }}">Ajouter</a>
     <table class="table">
         <thead>
             <td>type</td>
-            <td>Price</td>
+            <td>Montant</td>
         </thead>
         <tbody>
         {% set total = 0 %}
@@ -37,16 +49,4 @@
     </table>
     </div>
 </div>    
-
-<div class="row">
-    <div class="col">
-    Invoices - <a class="nav-link" href="{{ path('settings') }}">add</a>
-        {% for invoice in invoices %}
-            <pre>
-                {{ dump(invoice) }}
-            </pre>
-        {% endfor %}
-    </div>
-</div>    
-
 {% endblock %}

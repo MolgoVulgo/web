@@ -1,28 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category of Products{% endblock %}
+{% block title %}Catégorie de Produits{% endblock %}
 
-{% block titre %}Setting/Category of Products{% endblock %}
+{% block titre %}Config/Catégorie de Produits{% endblock %}
 
 {% block body %}
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Category of products</a>
+      <a class="nav-link active" href="#">Catégorie de Produits</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ path('setting_fees') }}">Fees</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Configuration</a>
+      <a class="nav-link" href="{{ path('setting_fees') }}">Frais</a>
     </li>
 </ul>
 <div class=row>
   <div class="col">
-    <a class="btn btn-primary" href="{{ path('setting_category_add') }}" role="button">Add</a>
+    <a class="btn btn-primary" href="{{ path('setting_category_add') }}" role="button">Ajouter</a>
   </div>
 </div>
 <div class="row">
@@ -31,7 +25,7 @@
      <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
+        <th>Nom</th>
         <th>Note</th>
         <th>Action<th>
       </th>
