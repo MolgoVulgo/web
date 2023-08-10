@@ -57,6 +57,7 @@ class InvoicesController extends AbstractController
 
             $invoices = $invoicesForm->getData();
             $invoices->setDate(new \DateTime("NOW"));
+            $invoices->setType(1);
             $this->em->persist($invoices);
             $this->em->flush();
         }

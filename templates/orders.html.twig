@@ -40,7 +40,8 @@
                     <td>{{order.date|date("d-m-Y")}}</td>
                     <td>{{nbArticle}}</td>
                     <td>{{total}}</td>
-                    <td><a href="{{ path('invoice_view', {order:order.id}) }}">view</a></td>
+                    <td></td>
+                    {# <td><a href="{{ path('invoice_view', {order:order.id}) }}">view</a></td> #}
                  </tr>                       
                 {% endfor %}
             </tbody>

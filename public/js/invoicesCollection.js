@@ -6,6 +6,7 @@ const sub_total = function(quantity,price,discount){
     return quantity*price-(((quantity*price)*discount)/100);
 }
 
+
 $(function () {
 
     $('.add-collection-widget').on('click',(function (e) {
@@ -29,35 +30,63 @@ $(function () {
         // create a new list element and add it to the list
         //var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         //newElem.appendTo(table);
-        table.append('<tr>' + newWidget + '</tr>');
+        table.append('<tr class="lineInvoce">' + newWidget + '</tr>');
     }));
 
-    $(document).on('change','.product', function (e){
+    // $(document).on('change','.product', function (e){
 
-        var url = "/ajax/get/product/" + $(this).val();
-        var price = $(this).parents('tr').find('.price');
-        var quantity = $(this).parents('tr').find('.quantity').val();
-        var discount = $(this).parents('tr').find('.discount').val();
-        var subtotal = $(this).parents('tr').find('.subtotal');
+    //     var url = "/ajax/get/product/" + $(this).val();
+    //     var price = $(this).parents('tr').find('.price');
+    //     var quantity = $(this).parents('tr').find('.quantity').val();
+    //     var discount = $(this).parents('tr').find('.discount').val();
+    //     var subtotal = $(this).parents('tr').find('.subtotal');
 
+    //     $.get(url, function( data ) {
+
+    //         price.val(data.price)
+    //         //totalLine = quantity*data.price-(((quantity*data.price)*discount)/100);
+    //         subtotal.val(sub_total(quantity,data.price,discount));
+
+    //       });
+    // })
+
+    // $(document).on('change','.quantity', function (e){
+
+    //     var price = $(this).parents('tr').find('.price').val();
+    //     var quantity = $(this).parents('tr').find('.quantity').val();
+    //     var discount = $(this).parents('tr').find('.discount').val();
+    //     var subtotal = $(this).parents('tr').find('.subtotal');
+
+    //     //totalLine = quantity*price-(((quantity*price)*discount)/100);
+    //     subtotal.val(sub_total(quantity,price,discount));
+
+    // })
+
+
+    $(document).on('change','.lineInvoce', function (e){
+
+        var price = $(this).find('.price');
+        var quantity = $(this).find('.quantity').val();
+        var discount = $(this).find('.discount').val();
+        var subtotal = $(this).find('.subtotal');
+
+
+    if ($(this).find('.price').val() == 1){
+
+        var url = "/ajax/get/product/" + $(this).find('.form-select').val();
         $.get(url, function( data ) {
 
             price.val(data.price)
             //totalLine = quantity*data.price-(((quantity*data.price)*discount)/100);
             subtotal.val(sub_total(quantity,data.price,discount));
 
-          });
-    })
+        });
+    }
 
-    $(document).on('change','.quantity', function (e){
 
-        var price = $(this).parents('tr').find('.price').val();
-        var quantity = $(this).parents('tr').find('.quantity').val();
-        var discount = $(this).parents('tr').find('.discount').val();
-        var subtotal = $(this).parents('tr').find('.subtotal');
 
         //totalLine = quantity*price-(((quantity*price)*discount)/100);
-        subtotal.val(sub_total(quantity,price,discount));
+        subtotal.val(sub_total(quantity,price.val(),discount));
 
     })
 

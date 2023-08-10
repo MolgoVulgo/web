@@ -1,3 +1,7 @@
 #tbl-event tr {
     cursor: pointer;
 }
+
+.deleteLineInvoice {
+    cursor: pointer;
+}

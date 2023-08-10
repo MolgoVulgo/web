@@ -21,21 +21,28 @@ class ProductsFormType extends AbstractType
         $builder
             ->add('ref',TextType::class)
             ->add('height',TextType::class,[
+                'label' => 'taille',
                 'required' => false,
             ])
             ->add('gender', ChoiceType::class, [
-                'label' => 'Gender',
+                'label' => 'Genre',
                 'choices'  => [
                     'n/a' => 'n/a',
-                    'Man' => "m",
-                    'Wonam' => "f",
+                    'Homme' => "m",
+                    'Femme' => "f",
                 ],
-                'placeholder' => 'Choice Gender',
+                'placeholder' => 'Choix Genre',
                 'required' => false,
             ])
-            ->add('price',NumberType::class)
-            ->add('code',TextType::class)
-            ->add('designation',TextType::class)
+            ->add('price',NumberType::class,[
+                'label' => 'Prix',
+            ])
+            ->add('code',TextType::class,[
+                'label' => 'Code',
+            ])
+            ->add('designation',TextType::class,[
+                'label' => 'Désignation',
+            ])
             ->add('categories',EntityType::class, [
                 'label' => 'Type',
                 'class' => Categories::class,
@@ -43,10 +50,14 @@ class ProductsFormType extends AbstractType
                     return $er->createQueryBuilder('t');
                 },
                 'choice_label' => 'name',
-                'placeholder' => 'Choice Type',
+                'placeholder' => 'Choix Type',
             ])
-            ->add('save',SubmitType::class)
-            ->add('saveAndNew',SubmitType::class)
+            ->add('save',SubmitType::class,[
+                'label' => 'Saugarder',
+            ])
+            ->add('saveAndNew',SubmitType::class,[
+                'label' => 'Savegarder et nouveau',
+            ])
 
         ;
     }

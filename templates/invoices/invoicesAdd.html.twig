@@ -12,6 +12,7 @@
     <td>{{ form_widget(invoiceLine.price) }}</td>
     <td>{{ form_widget(invoiceLine.discount) }}</td>
     <td>{{ form_widget(invoiceLine.subtotal) }}</td>
+    <td><span data-idLine="__name__" class="fa fa-delete-left deleteLineInvoice" style="cursor: pointer;" title="Supprimer"></span></td>
 {% endmacro %}
 
 {% import _self as formMacros %}
@@ -22,9 +23,6 @@
         <div class="col">{{ form_row(invoicesForm.customer) }}</div>
         <div class="col">{{ form_row(invoicesForm.events) }}</div>
     </div>
-
-   
-
 
         <div id="frais-fields-list"
             data-prototype="{{ formMacros.printInvoiceLineRow(invoicesForm.invoiceLines.vars.prototype)|e('html_attr') }}"

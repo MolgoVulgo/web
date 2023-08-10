@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col">
-    Facture - <a class="nav-link" href="{{ path('event_invoices_add', { 'event': event.id}) }}">Ajouter</a>
+    Facture - <a class="nav-link" href="{{ path('event_invoices_add', { 'eventId': event.id}) }}">Ajouter</a>
         {% for invoice in invoices %}
             <pre>
                 {{ dump(invoice) }}
