@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Events;
-use App\Entity\Fees;
 use App\Form\EventsFromType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\DataTableFactory;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+
 
 class EventsController extends AbstractController
 {
@@ -21,12 +25,64 @@ class EventsController extends AbstractController
     }
 
     #[Route('/events', name: 'events')]
-    public function events(): Response
+    public function events(Request $request, DataTableFactory $dataTableFactory): Response
     {
 
-        $events = $this->em->getRepository(Events::class)->findAll();
+        $table = $dataTableFactory->create()
+        ->add('name', 
+                TextColumn::class,   
+                    [
+                    'label' => 'Event',
+                    'globalSearchable' => true,
+                    ])
+        ->add('location', 
+                TextColumn::class, 
+                    [
+                    'label' => 'Lieux',
+                    ])
+        ->add('startDate', 
+                DateTimeColumn::class, 
+                    [
+                    'label' => 'Date',
+                    'format' => 'd-m-Y'
+                    ])
+        ->add('fees', 
+                TextColumn::class,
+                    [
+                    'label' => 'Frais',
+                    ])
+        ->add('invoiceCompute', 
+                TextColumn::class,
+                    [
+                    'label' => 'Chiffres',
+                    ])          
+        ->add('ca', 
+                TextColumn::class,
+                    [
+                    'label' => 'C.A',
+                    ])            
+        ->add('action', 
+                TextColumn::class,
+                    [
+                    'label' => 'Action',
+                    'render' => function($value, $context) {
+                        $url = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        $url2 = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
+                        }
+                    ])
+
+        ->createAdapter(ORMAdapter::class, [
+            'entity' => Events::class,
+        ])
+        ->handleRequest($request);
+
+    if ($table->isCallback()) {
+        return $table->getResponse();
+    }
+
         return $this->render('events.html.twig', [
-            'events' => $events,
+            'datatable' => $table,
         ]);
     }
 

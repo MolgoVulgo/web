@@ -4,8 +4,3 @@ index:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing-sf4.xml"
-
-sg_datatables_bundle:
-    resource: "@SgDatatablesBundle/Controller/"
-    type:     annotation
-    prefix:   /sg

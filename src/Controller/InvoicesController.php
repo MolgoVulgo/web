@@ -7,10 +7,16 @@ use App\Entity\Invoices;
 use App\Form\InvoicesFormType;
 use App\Form\OrdersFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\DataTableFactory;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+
 
 class InvoicesController extends AbstractController
 {
@@ -23,11 +29,71 @@ class InvoicesController extends AbstractController
     }
 
     #[Route('/invoices', name: 'invoices')]
-    public function invoices(): Response
+    public function invoices(Request $request, DataTableFactory $dataTableFactory): Response
     {
-        $invoices = $this->em->getRepository(Invoices::class)->findBy(['type' => 1]);
+        
+        $table = $dataTableFactory->create()
+            ->add('customer', 
+                    TextColumn::class,   
+                        [
+                        'label' => 'Client',
+                        'field' => 'c.name',
+                        'globalSearchable' => true,
+                        ])
+            ->add('events', 
+                    TextColumn::class, 
+                        [
+                        'label' => 'Lieux',
+                        'field' => 'e.name'
+                        ])
+            ->add('date', 
+                    DateTimeColumn::class, 
+                        [
+                        'label' => 'Date',
+                        'format' => 'd-m-Y'
+                        ])
+            ->add('quantity', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Quantité',
+                        ])
+            ->add('total', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Total',
+                        ])            
+            ->add('action', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Action',
+                        'render' => function($value, $context) {
+                            $url = $this->generateUrl('invoice_view', array('invoice' => $context->getId()));
+                            $url2 = $this->generateUrl('invoice_view', array('invoice' => $context->getId()));
+                            return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
+                            }
+                        ])
+
+            ->createAdapter(ORMAdapter::class, [
+                'entity' => Invoices::class,
+                'query' => function (QueryBuilder $builder) {
+                    $builder
+                        ->select('i')
+                        ->addSelect('e')
+                        ->from(Invoices::class, 'i')
+                        ->innerJoin('i.events', 'e')
+                        ->innerJoin('i.customer','c')
+                        ->andWhere('i.type=1')
+                    ;
+                },
+            ])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
         return $this->render('invoices.html.twig', [
-            'invoices' => $invoices,
+            'datatable' => $table
         ]);
     }    
     
@@ -56,6 +122,17 @@ class InvoicesController extends AbstractController
         if ($invoicesForm->isSubmitted() && $invoicesForm->isValid()) {
 
             $invoices = $invoicesForm->getData();
+            
+            // count total Invoces and total article
+            $total= 0;
+            $quantity = 0;
+            foreach ($invoices->getInvoiceLines() as $invoiceLine) {
+
+                $total = $total + $invoiceLine->getPrice();
+                $quantity = $quantity + $invoiceLine->getQuantity();
+            }
+            $invoices->setTotal($total);
+            $invoices->setQuantity($quantity);
             $invoices->setDate(new \DateTime("NOW"));
             $invoices->setType(1);
             $this->em->persist($invoices);
@@ -97,11 +174,71 @@ class InvoicesController extends AbstractController
 
 
     #[Route('/orders', name: 'orders')]
-    public function orders(): Response
+    public function orders(Request $request, DataTableFactory $dataTableFactory): Response
     {
-        $orders = $this->em->getRepository(Invoices::class)->findBy(['type' => 2]);
+        
+        $table = $dataTableFactory->create()
+            ->add('customer', 
+                    TextColumn::class,   
+                        [
+                        'label' => 'Client',
+                        'field' => 'c.name',
+                        'globalSearchable' => true,
+                        ])
+            ->add('events', 
+                    TextColumn::class, 
+                        [
+                        'label' => 'Lieux',
+                        'field' => 'e.name'
+                        ])
+            ->add('date', 
+                    DateTimeColumn::class, 
+                        [
+                        'label' => 'Date',
+                        'format' => 'd-m-Y'
+                        ])
+            ->add('quantity', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Quantité',
+                        ])
+            ->add('total', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Total',
+                        ])            
+            ->add('action', 
+                    TextColumn::class,
+                        [
+                        'label' => 'Action',
+                        'render' => function($value, $context) {
+                            $url = $this->generateUrl('invoice_view', array('invoice' => $context->getId()));
+                            $url2 = $this->generateUrl('invoice_view', array('invoice' => $context->getId()));
+                            return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
+                            }
+                        ])
+
+            ->createAdapter(ORMAdapter::class, [
+                'entity' => Invoices::class,
+                'query' => function (QueryBuilder $builder) {
+                    $builder
+                        ->select('i')
+                        ->addSelect('e')
+                        ->from(Invoices::class, 'i')
+                        ->innerJoin('i.events', 'e')
+                        ->innerJoin('i.customer','c')
+                        ->andWhere('i.type=2')
+                    ;
+                },
+            ])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
         return $this->render('orders.html.twig', [
-           'orders' => $orders,
+           'datatable' => $table,
         ]);
     }
 
@@ -121,6 +258,17 @@ class InvoicesController extends AbstractController
         if ($ordersForm->isSubmitted() && $ordersForm->isValid()) {
 
             $orders = $ordersForm->getData();
+            // count total Invoces and total article
+            $total= 0;
+            $quantity = 0;
+            foreach ($orders->getInvoiceLines() as $invoiceLine) {
+
+                $total = $total + $invoiceLine->getPrice();
+                $quantity = $quantity + $invoiceLine->getQuantity();
+            }
+            $orders->setTotal($total);
+            $orders->setQuantity($quantity);
+
             $orders->setDate(new \DateTime("NOW"));
             $orders->setType(2);
             $this->em->persist($orders);

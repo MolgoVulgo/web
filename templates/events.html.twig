@@ -12,47 +12,16 @@
 </div>
 <div class="row">
     <div class="col">
-        <table id="tbl-event" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Event</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                    <th>Frais</th>
-                    <th>Chiffres</th>
-                    <th>C.A</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for event in events %}
-                <tr data-type="link" data-href="{{ path('event_view',{id:event.id}) }}">
-                    <td>{{event.id}}</td>
-                    <td>{{event.name}}</td>
-                    <td>{{event.location}}</td>
-                    <td>{{event.startDate|date("d/m/Y")}} - {{event.endDate|date("d/m/Y")}}</td>
-                    <td>
-                        {% set feesValue = "0" %}
-                        {% for fees in event.fees %}
-                           {% set feesValue = feesValue+ fees.price %} 
-                        {% endfor %}
-                        {{feesValue}} €
-                    </td>
-                    <td>
-                        {% set invoiceCompute = "0" %}
-                        {% for invoice in event.invoices %}
-                           {% for line in invoice.invoiceLines %}
-                                {% set invoiceCompute = invoiceCompute + (line.quantity*line.price - ((line.quantity*line.price*line.discount)/100)) %}
-                           {% endfor %}
-                        {% endfor %}
-                        {{invoiceCompute}} €
-                    </td>
-                    <td> {% set ca = invoiceCompute - feesValue %}
-                    {{ca}} €</td>
-                </tr>    
-            {% endfor %}
-        </table>    
-
+        <div id="presidents">Loading...</div>
+        <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+        <script>
+        $(function() {
+            $('#presidents').initDataTables({{ datatable_settings(datatable) }}, {
+                searching: true,
+                dom:'<"html5buttons"B>lTfgitp',});
+        });
+        </script>      
     </div>
 </div>
+
 {% endblock %}

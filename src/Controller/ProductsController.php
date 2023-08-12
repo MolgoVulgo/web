@@ -3,52 +3,86 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use App\Datatables\ProductsDatatable;
 use App\Entity\Products;
 use App\Form\ProductsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sg\DatatablesBundle\Datatable\DatatableFactory;
-use Sg\DatatablesBundle\Response\DatatableResponse;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\DataTableFactory;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 
 class ProductsController extends AbstractController
 {
 
-    private $dtFactory;
-    private $dtResponse;
-    
-    public function __construct(EntityManagerInterface $entityManager,DatatableFactory $datatableFactory, DatatableResponse $datatableResponse)
+    private $em;
+   
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->dtFactory = $datatableFactory;
-        $this->dtResponse = $datatableResponse;
         $this->em = $entityManager;
     }
 
     #[Route('/products', name: 'products')]
-    public function index(): Response
+    public function index(Request $request, DataTableFactory $dataTableFactory): Response
     {
-        /** @var DatatableInterface $productsDatatable */
-        $productsDatatable = $this->dtFactory->create(ProductsDatatable::class);
-        $productsDatatable->buildDatatable();
+
+        $table = $dataTableFactory->create()
+        ->add('ref', 
+                TextColumn::class,   
+                    [
+                    'label' => 'Ref',
+                    'globalSearchable' => true,
+                    ])
+        ->add('categoriesId', 
+                TextColumn::class, 
+                    [
+                    'label' => 'Catégorie',
+                    'field' => 'categories.name',
+                    ])
+        ->add('height', 
+                TextColumn::class,
+                    [
+                    'label' => 'Taile',
+                    ])
+        ->add('gender', 
+                TextColumn::class, 
+                    [
+                    'label' => 'Genre',
+                    'render' => function($value, $context) {
+
+                        if ($value == 'm'){
+                            $genre = "Homme";
+                        }else{
+                            $genre = "Femme";
+                        }
+                        return sprintf('%s', $genre);
+                    }
+                    ])       
+        ->add('action', 
+                TextColumn::class,
+                    [
+                    'label' => 'Action',
+                    'render' => function($value, $context) {
+                        $url = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        $url2 = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
+                        }
+                    ])
+
+        ->createAdapter(ORMAdapter::class, [
+            'entity' => Products::class,
+        ])
+        ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
 
         return $this->render('products.html.twig', [
-            'productsDatatable' => $productsDatatable,
+            'datatable' => $table,
         ]);
-    }
 
-    #[Route('/products/list', name: 'products_list')]
-    public function customersList(Request $request): Response
-    {
-        /** @var DatatableInterface $productsDatatable */
-        $datatable = $this->dtFactory->create(ProductsDatatable::class);
-        $datatable->buildDatatable();
-        $responseService = $this->dtResponse;
-        $responseService->setDatatable($datatable);
-        $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
-        $datatableQueryBuilder->getQb();
-        return $responseService->getResponse();
     }
 
     #[Route('/products/add', name: 'products_add')]

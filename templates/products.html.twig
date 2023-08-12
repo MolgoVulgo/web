@@ -12,7 +12,15 @@
 </div>
 <div class="row">
     <div class="col">
-        {{ sg_datatables_render(productsDatatable) }}
+        <div id="presidents">Loading...</div>
+        <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+        <script>
+        $(function() {
+            $('#presidents').initDataTables({{ datatable_settings(datatable) }}, {
+                searching: true,
+                dom:'<"html5buttons"B>lTfgitp',});
+        });
+        </script>      
     </div>
 </div>
 {% endblock %}

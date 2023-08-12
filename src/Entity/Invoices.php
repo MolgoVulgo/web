@@ -37,6 +37,12 @@ class Invoices
     #[ORM\Column(type: 'integer', nullable: true)]
     private $downPayment;
 
+    #[ORM\Column]
+    private ?int $quantity = null;
+
+    #[ORM\Column]
+    private ?int $total = null;
+
     public function __construct()
     {
         //$this->products = new ArrayCollection();
@@ -152,6 +158,30 @@ class Invoices
     public function setDownPayment(?int $downPayment): self
     {
         $this->downPayment = $downPayment;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(int $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }

@@ -7,54 +7,89 @@ use App\Entity\Measurement ;
 use App\Form\CustomerFormType;
 use App\Form\MeasurementFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Datatables\CustomersDatatable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sg\DatatablesBundle\Datatable\DatatableFactory;
-use Sg\DatatablesBundle\Response\DatatableResponse;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\DataTableFactory;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 
 class CustomersController extends AbstractController
 {
 
-    private $dtFactory;
-    private $dtResponse;
     private $em;
 
-    public function __construct(EntityManagerInterface $entityManager,DatatableFactory $datatableFactory, DatatableResponse $datatableResponse)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->dtFactory = $datatableFactory;
-        $this->dtResponse = $datatableResponse;
         $this->em = $entityManager;
     }
 
 
     #[Route('/customers', name: 'customers')]
-    public function customers(): Response
+    public function customers(Request $request, DataTableFactory $dataTableFactory): Response
     {
 
-        /** @var DatatableInterface $CustomersDatatable */
-        $customerDatatable = $this->dtFactory->create(CustomersDatatable::class);
-        $customerDatatable->buildDatatable();
+        $table = $dataTableFactory->create()
+        ->add('name', 
+                TextColumn::class,   
+                    [
+                    'label' => 'Nom',
+                    'globalSearchable' => true,
+                    ])
+        ->add('countryId', 
+                TextColumn::class, 
+                    [
+                    'label' => 'Lieux',
+                    'field' => 'country.name',
+                    ])
+        ->add('phone', 
+                TextColumn::class,
+                    [
+                    'label' => 'Téléphone',
+                    ])
+        ->add('email', 
+                TextColumn::class, 
+                    [
+                    'label' => 'E-mail',
+                    ])       
+        ->add('action', 
+                TextColumn::class,
+                    [
+                    'label' => 'Action',
+                    'render' => function($value, $context) {
+                        $url = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        $url2 = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
+                        }
+                    ])
+
+        ->createAdapter(ORMAdapter::class, [
+            'entity' => Customers::class,
+        ])
+        ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
 
         return $this->render('customers.html.twig', [
-            'customerDatatable' => $customerDatatable,
+            'datatable' => $table,
         ]);
     }
 
-    #[Route('/customers/list', name: 'customer_list')]
-    public function customersList(Request $request): Response
-    {
-        /** @var DatatableInterface $CustomersDatatable */
-        $datatable = $this->dtFactory->create(CustomersDatatable::class);
-        $datatable->buildDatatable();
-        $responseService = $this->dtResponse;
-        $responseService->setDatatable($datatable);
-        $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
-        $datatableQueryBuilder->getQb();
-        return $responseService->getResponse();
-    }
+    // #[Route('/customers/list', name: 'customer_list')]
+    // public function customersList(Request $request): Response
+    // {
+    //     /** @var DatatableInterface $CustomersDatatable */
+    //     $datatable = $this->dtFactory->create(CustomersDatatable::class);
+    //     $datatable->buildDatatable();
+    //     $responseService = $this->dtResponse;
+    //     $responseService->setDatatable($datatable);
+    //     $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
+    //     $datatableQueryBuilder->getQb();
+    //     return $responseService->getResponse();
+    // }
 
 
     #[Route('/customer/add', name: 'customer_add')]
