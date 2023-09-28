@@ -18,16 +18,16 @@ class Fees
     #[ORM\Column(type: 'integer')]
     private $price;
 
-    #[ORM\ManyToOne(targetEntity: FeesType::class, inversedBy: 'fees')]
+    #[ORM\ManyToOne(targetEntity: FeesType::class, inversedBy: 'fees',cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private $type;
 
-    #[ORM\ManyToMany(targetEntity: Events::class, mappedBy: 'fees')]
-    private $events;
+    #[ORM\ManyToOne(inversedBy: 'fees')]
+    private ?Events $events = null;
 
     public function __construct()
     {
-        $this->events = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -59,30 +59,16 @@ class Fees
         return $this;
     }
 
-    /**
-     * @return Collection<int, Events>
-     */
-    public function getEvents(): Collection
+    public function getEvents(): ?Events
     {
         return $this->events;
     }
 
-    public function addEvent(Events $event): self
+    public function setEvents(?Events $events): static
     {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->addFees($this);
-        }
+        $this->events = $events;
 
         return $this;
     }
 
-    public function removeEvent(Events $event): self
-    {
-        if ($this->events->removeElement($event)) {
-            $event->removeFees($this);
-        }
-
-        return $this;
-    }
 }

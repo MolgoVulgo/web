@@ -20,6 +20,15 @@ class ProductsFormType extends AbstractType
     {
         $builder
             ->add('ref',TextType::class)
+            ->add('categories',EntityType::class, [
+                'label' => 'Type',
+                'class' => Categories::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t');
+                },
+                'choice_label' => 'name',
+                'placeholder' => 'Choix Type',
+            ])
             ->add('height',TextType::class,[
                 'label' => 'taille',
                 'required' => false,
@@ -37,21 +46,12 @@ class ProductsFormType extends AbstractType
             ->add('price',NumberType::class,[
                 'label' => 'Prix',
             ])
-            ->add('code',TextType::class,[
-                'label' => 'Code',
-            ])
-            ->add('designation',TextType::class,[
-                'label' => 'Désignation',
-            ])
-            ->add('categories',EntityType::class, [
-                'label' => 'Type',
-                'class' => Categories::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t');
-                },
-                'choice_label' => 'name',
-                'placeholder' => 'Choix Type',
-            ])
+            // ->add('code',TextType::class,[
+            //     'label' => 'Code',
+            // ])
+            // ->add('designation',TextType::class,[
+            //     'label' => 'Désignation',
+            // ])
             ->add('save',SubmitType::class,[
                 'label' => 'Saugarder',
             ])

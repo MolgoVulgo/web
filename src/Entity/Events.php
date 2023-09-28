@@ -27,17 +27,16 @@ class Events
     #[ORM\Column(type: 'date', nullable: true)]
     private $endDate;
 
-
-    #[ORM\ManyToMany(targetEntity: Fees::class, inversedBy: 'events', cascade: ["persist"])]
-    private $fees;
-
     #[ORM\OneToMany(mappedBy: 'events', targetEntity: Invoices::class)]
     private $invoices;
 
+    #[ORM\OneToMany(mappedBy: 'events', targetEntity: Fees::class,cascade: ["persist"])]
+    private Collection $fees;
+
     public function __construct()
     {
-        $this->fees = new ArrayCollection();
         $this->invoices = new ArrayCollection();
+        $this->fees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,31 +92,6 @@ class Events
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Fees>
-     */
-    public function getFees(): Collection
-    {
-        return $this->fees;
-    }
-
-    public function addFees(Fees $fees): self
-    {
-        if (!$this->fees->contains($fees)) {
-            $this->fees[] = $fees;
-        }
-
-        return $this;
-    }
-
-    public function removeFees(Fees $fees): self
-    {
-        $this->fees->removeElement($fees);
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Invoices>
      */
@@ -142,6 +116,37 @@ class Events
             // set the owning side to null (unless already changed)
             if ($invoices->getEvents() === $this) {
                 $invoices->setEvents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fees>
+     */
+    public function getFees(): Collection
+    {
+        return $this->fees;
+    }
+
+    public function addFee(Fees $fee): static
+    {
+        if (!$this->fees->contains($fee)) {
+
+            $this->fees->add($fee);
+            $fee->setEvents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFee(Fees $fee): static
+    {
+        if ($this->fees->removeElement($fee)) {
+            // set the owning side to null (unless already changed)
+            if ($fee->getEvents() === $this) {
+                $fee->setEvents(null);
             }
         }
 

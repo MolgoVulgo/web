@@ -64,8 +64,8 @@ class ProductsController extends AbstractController
                     [
                     'label' => 'Action',
                     'render' => function($value, $context) {
-                        $url = $this->generateUrl('event_view', array('id' => $context->getId()));
-                        $url2 = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        $url = $this->generateUrl('products_view', array('productId' => $context->getId()));
+                        $url2 = $this->generateUrl('event_view', array('eventId' => $context->getId()));
                         return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
                         }
                     ])
@@ -116,4 +116,12 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    #[Route('/products/{productId}/view}', name: 'products_view')]
+    public function productsView(Request $request): Response
+    {
+        
+        return $this->render('products/productsView.html.twig', [
+            //'productsForm' => $productsForm->createView(),
+        ]);
+    }
 }

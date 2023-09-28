@@ -10,6 +10,7 @@ const sub_total = function(quantity,price,discount){
 $(function () {
 
     $('.add-collection-widget').on('click',(function (e) {
+
         
         var list = $($(this).attr('data-list-selector'));
         var table = $("#tableInvoice > tbody");
@@ -31,6 +32,7 @@ $(function () {
         //var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         //newElem.appendTo(table);
         table.append('<tr class="lineInvoce">' + newWidget + '</tr>');
+        $('#tableInvoice').css("display", "block");
     }));
 
     // $(document).on('change','.product', function (e){

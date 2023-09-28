@@ -58,8 +58,8 @@ class CustomersController extends AbstractController
                     [
                     'label' => 'Action',
                     'render' => function($value, $context) {
-                        $url = $this->generateUrl('event_view', array('id' => $context->getId()));
-                        $url2 = $this->generateUrl('event_view', array('id' => $context->getId()));
+                        $url = $this->generateUrl('event_view', array('eventId' => $context->getId()));
+                        $url2 = $this->generateUrl('customer_edit', array('customer' => $context->getId()));
                         return sprintf('<a href="%s">Voir</a> - <a href="%s">Modifier</a>', $url, $url2);
                         }
                     ])
@@ -77,20 +77,6 @@ class CustomersController extends AbstractController
             'datatable' => $table,
         ]);
     }
-
-    // #[Route('/customers/list', name: 'customer_list')]
-    // public function customersList(Request $request): Response
-    // {
-    //     /** @var DatatableInterface $CustomersDatatable */
-    //     $datatable = $this->dtFactory->create(CustomersDatatable::class);
-    //     $datatable->buildDatatable();
-    //     $responseService = $this->dtResponse;
-    //     $responseService->setDatatable($datatable);
-    //     $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
-    //     $datatableQueryBuilder->getQb();
-    //     return $responseService->getResponse();
-    // }
-
 
     #[Route('/customer/add', name: 'customer_add')]
     public function customerAdd(Request $request): Response
@@ -130,7 +116,7 @@ class CustomersController extends AbstractController
     public function customerEdit(Request $request, Customers $customer) : Response
     {
 
-        $customer = $this->em->getRepository(customers::class)->find($customer);
+        //$customer = $this->em->getRepository(customers::class)->find($customer);
         $customerForm = $this->createForm(
             CustomerFormType::class, 
             $customer, 
@@ -165,12 +151,18 @@ class CustomersController extends AbstractController
     #[Route('/customers/{customer}/measurement', name: 'customer_measurement')]
     public function customerMeasurement (Request $request,Customers $customer): Response
     {
+                
         
-        $measurement= $customer->getMeasurement ();
-        if (is_null($measurement)) {
+        
+        if (is_null($customer->getMeasurement ())) {
             $measurement= new Measurement ;
+        }else{
+            $measurement= $this->em->getRepository(Measurement::class)->find($customer->getMeasurement()->getId());
+            //$measurement= new Measurement ;
         }
             
+//dd($measurement);
+
         $measurementForm = $this->createForm(
             MeasurementFormType::class, 
             $measurement, 

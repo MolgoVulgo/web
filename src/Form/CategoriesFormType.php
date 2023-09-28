@@ -17,9 +17,9 @@ class CategoriesFormType extends AbstractType
             ->add('name',TextType::class,[
                 'label' => 'Nom',
             ])
-            ->add('note',TextType::class,[
-                'label' => 'note',
-            ])
+            // ->add('note',TextType::class,[
+            //     'label' => 'note',
+            // ])
             ->add('save',SubmitType::class,[
                 'label' => 'Sauvegarder',
             ])

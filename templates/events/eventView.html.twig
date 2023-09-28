@@ -15,38 +15,32 @@
 <div class="row">
     <div class="col">
     Facture - <a class="nav-link" href="{{ path('event_invoices_add', { 'eventId': event.id}) }}">Ajouter</a>
-        {% for invoice in invoices %}
-            <pre>
-                {{ dump(invoice) }}
-            </pre>
-        {% endfor %}
+        <div id="presidents_invoice">Loading...</div>
+        <script>
+        $(function() {
+            $('#presidents_invoice').initDataTables({{ datatable_settings(tableInvoices) }}, {
+                searching: true,
+                //dom:'<"html5buttons"B>lTfgitp',
+            });
+        });
+
+        </script>   
     </div>
 </div>    
 
 <div class="row">
     <div class="col">
-    Frais - <a class="nav-link" href="{{ path('settings') }}">Ajouter</a>
-    <table class="table">
-        <thead>
-            <td>type</td>
-            <td>Montant</td>
-        </thead>
-        <tbody>
-        {% set total = 0 %}
-        {% for fee in fees %}
-            <tr>
-                <td>{{fee.type.name}}</td>
-                <td>{{fee.price}}
-                    {% set total = total + fee.price %}
-                </td>
-            </tr>
-        {% endfor %}
-            <tr>
-                <td>Total</td>
-                <td>{{ total }}</td>
-            </tr>
-        </tbody>
-    </table>
+    Frais - <a class="nav-link" href="{{ path('event_add_fees',{'eventId': event.id}) }}">Ajouter</a>
+        <div id="presidents_fees">Loading...</div>
+    <script>
+    $(function() {
+        $('#presidents_fees').initDataTables({{ datatable_settings(tableFees) }}, {
+            searching: true,
+            //dom:'<"html5buttons"B>lTfgitp',
+        });
+    });
+    </script>   
     </div>
-</div>    
+</div>
+<script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>    
 {% endblock %}

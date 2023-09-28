@@ -36,7 +36,7 @@ class EventsFromType extends AbstractType
                 'allow_delete' => true,
             ])
             ->add('save',SubmitType::class)
-            ->add('saveAndNew',SubmitType::class)
+            //->add('saveAndNew',SubmitType::class)
         ;
     }
 

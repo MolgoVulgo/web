@@ -31,7 +31,7 @@ class Products
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $code;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $designation;
 
     #[ORM\Column(type: 'integer')]

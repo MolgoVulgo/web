@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Fees;
 use App\Entity\FeesType;
 use App\Entity\Categories;
+use App\Entity\Country;
 use App\Form\FeesTypeFormType;
 use App\Form\CategoriesFormType;
+use App\Form\CountryFromType;
+use App\Form\CountryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +26,12 @@ class SettingController extends AbstractController
     }
 
     // General //
-    #[Route('/settings', name: 'settings')]
-    public function setting(): Response
-    {
-        return $this->render('settings.html.twig', [
-        ]);
-    }
+    // #[Route('/settings', name: 'settings')]
+    // public function setting(): Response
+    // {
+    //     return $this->render('settings.html.twig', [
+    //     ]);
+    // }
 
     #[Route('/setting/category', name: 'setting_categories')]
     public function settingType(): Response
@@ -119,5 +122,51 @@ class SettingController extends AbstractController
             'feesForm' => $feesForm->createView(),
         ]);
     }
+
+    //country
+    #[Route('/setting/country', name: 'setting_country')]
+    public function settingCountry(): Response
+    {
+     
+        $country = $this->em->getRepository(Country::class)->findAll();
+        return $this->render('settings/country.html.twig', [
+            'country' => $country,
+        ]);
+    }
+
+       // category products //
+       #[Route('/setting/country/add', name: 'setting_country_add')]
+       public function settingCountryAdd(Request $request): Response
+       {
+           $country = new Country;
+           $countryForm = $this->createForm(
+               CountryFromType::class, 
+               $country, 
+               [
+                   'action' => $this->generateUrl('setting_country_add'),
+               ]
+           );
+   
+           $countryForm->handleRequest($request);
+           if ($countryForm->isSubmitted() && $countryForm->isValid()) {
+   
+               $categories = $countryForm->getData();
+               $this->em->persist($categories);
+               $this->em->flush();
+   
+               if ($countryForm->getClickedButton() === $countryForm->get('saveAndNew')){
+                   return $this->redirectToRoute('setting_country_add', []);
+               }
+   
+               return $this->redirectToRoute('setting_country_add', []);
+   
+               return $this->redirectToRoute('customers', []);
+               
+           }
+           return $this->render('settings/categoryAdd.html.twig', [
+               'categoriesForm' => $countryForm->createView(),
+           ]);
+       }
+   
 }
 

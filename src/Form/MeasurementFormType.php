@@ -11,86 +11,88 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MeasurementFormType extends AbstractType
 {
+    private $gender;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this->gender = $options['gender'];
 
         $builder
             ->add('hauteurTailleSol', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('longueurBasLegerementPlie', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('hauteurEncolureSol', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('Taille', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourCou', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('carrureDevant', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('carrureDos', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourTaille', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourHanche', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourBassin', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourGenou', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourChecity', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('hauteurEcolureTailleDevant', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('hauteurEncolurSaillant', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('hauteurTailleGenou', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourBiceps', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourAvantBras', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourPoignet', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourCuisse', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('tourMollet', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('hauteurEncolureTailleDos', NumberType::class,[
-                'required' => true
+                'required' => false
             ])
             ->add('save', SubmitType::class)
             ->add('products', SubmitType::class);
             // femme selement
             if($this->gender == 'femme'){
                 $builder->add('tourPoitrine', NumberType::class,[
-                    'required' => true
+                    'required' => false
                 ])
                     ->add('encartSaillantPoitrine', NumberType::class,[
-                        'required' => true
+                        'required' => false
                     ])
                     ->add('tourSousPoitrine', NumberType::class,[
-                        'required' => true
+                        'required' => false
                     ]);
             }    
         ;

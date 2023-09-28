@@ -6,42 +6,64 @@
 
 {% block body %}
 
+{% macro feesLineRow(feeLine) %}
+    <div class="row mt-1">
+        <div class="col-2">{{ form_widget(feeLine.type) }}</div>
+        <div class="col-2">{{ form_widget(feeLine.price) }}</div>
+    </div>
+{% endmacro %}
+
+{% import _self as formMacros %}
+
 {{ form_start(eventForm) }}
 
 
     <div class="row">
-        <div class="col">
+    <h2>Events</h2>
+        <div class="col-3">
             {{form_row(eventForm.name)}}
         </div>
-        <div class="col">
-            {{form_row(eventForm.startDate)}}
-        </div>        
-        <div class="col">
-            {{form_row(eventForm.endDate)}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5">
+        <div class="col-3">
             {{form_row(eventForm.location)}}
         </div>
     </div>
-
-        <ul id="frais-fields-list"
-            data-prototype="{{ form_widget(eventForm.fees.vars.prototype)|e }}"
-            data-widget-tags="{{ '<li></li>'|e }}"
-            data-widget-counter="{{ eventForm.fees|length }}">
-        {% for feesField in eventForm.fees %}
-            <li>
-                {{ form_errors(feesField) }}
-                {{ form_widget(feesField) }}
-            </li>
-        {% endfor %}
-        </ul>
-
-        <!-- button type="button"
-            class="add-collection-widget"
-            data-list-selector="#frais-fields-list">ajout frais</button -->
+    <div class="row">
+        <div class="col-2">
+            {{form_row(eventForm.startDate)}}
+        </div>        
+        <div class="col-2">
+            {{form_row(eventForm.endDate)}}
+        </div>
+    </div>    
+    <hr>
+    <div class="row">
+        <div class="row">
+            <h2>Frais</h2>
+        </div>
+        <div class="row">
+            <div class="col"
+                <ul id="frais-fields-list"
+                    data-prototype="{{ formMacros.feesLineRow(eventForm.fees.vars.prototype)|e('html_attr') }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ eventForm.fees|length }}">
+                {% for feesField in eventForm.fees %}
+                    <li>
+                        {{ formMacros.feesLineRow(feesField) }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col">
+                <button type="button"
+                    class="add-collection-widget"
+                    data-list-selector="#frais-fields-list">ajout frais</button>
+            </div>
+        </div>
+    </div>
+    <hr>
 
 {{ form_end(eventForm) }}
-<!-- script src="{{asset('js/fraisCollection.js')}}"></script -->/
+<script src="{{asset('js/fraisCollection.js')}}"></script>
 {% endblock %}

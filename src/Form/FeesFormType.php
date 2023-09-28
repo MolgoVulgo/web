@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,10 +23,11 @@ class FeesFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t');
                 },
-                'choice_label' => 'code',
-                'placeholder' => 'Choice Type',
+                'choice_label' => 'name',
+                'placeholder' => 'Choisir',
             ])
             ->add('price',NumberType::class)
+            //->add('save',SubmitType::class)
         ;
     }
 

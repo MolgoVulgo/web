@@ -39,15 +39,15 @@ class Customers
     #[ORM\Column(type: 'string', length: 5)]
     private $gender;
 
-    #[ORM\OneToOne(inversedBy: 'customers', targetEntity: Measurement ::class, cascade: ['persist', 'remove'])]
-    private $measurement ;
-
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Invoices::class)]
     private $invoices;
 
     #[ORM\ManyToOne(inversedBy: 'customers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Country $country = null;
+
+    #[ORM\OneToOne(inversedBy: 'customers', cascade: ['persist', 'remove'])]
+    private ?Measurement $measurement = null;
 
     public function __construct()
     {
@@ -155,18 +155,6 @@ class Customers
         return $this;
     }
 
-    public function getMeasurement (): ?Measurement 
-    {
-        return $this->measurement ;
-    }
-
-    public function setMeasurement (?Measurement  $measurement ): self
-    {
-        $this->measurement  = $measurement ;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Invoices>
      */
@@ -205,6 +193,18 @@ class Customers
     public function setCountry(?Country $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getMeasurement(): ?Measurement
+    {
+        return $this->measurement;
+    }
+
+    public function setMeasurement(?Measurement $measurement): static
+    {
+        $this->measurement = $measurement;
 
         return $this;
     }

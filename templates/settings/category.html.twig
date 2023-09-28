@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catégorie de Produits{% endblock %}
+{% block title %}Type de Produits{% endblock %}
 
-{% block titre %}Config/Catégorie de Produits{% endblock %}
+{% block titre %}Configuration/Type de Produits{% endblock %}
 
 {% block body %}
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" href="#">Catégorie de Produits</a>
+      <a class="nav-link active" href="#">Type de Produits</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ path('setting_fees') }}">Frais</a>
+      <a class="nav-link" href="{{ path('setting_fees') }}">Type de Frais</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ path('setting_country') }}">Pays</a>
     </li>
 </ul>
 <div class=row>
