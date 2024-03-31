@@ -6,7 +6,7 @@ services:
     build:
       context: ./php
     environment:
-      - DATABASE_URL=mysql://${USER_NAME}:${DB_PASSWORD}@${DB_URL}-db:${DB_PORT}/${DB_NAME}
+      - DATABASE_URL=mysql://${USER_NAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB_NAME}
     ports:
       - '9000'
     volumes:
